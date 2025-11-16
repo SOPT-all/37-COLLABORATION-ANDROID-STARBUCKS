@@ -2,8 +2,6 @@
 .gradle
 /local.properties
 /.idea
-!.idea/codeStyles
-!.idea/runConfigurations
 .DS_Store
 /build
 /captures
