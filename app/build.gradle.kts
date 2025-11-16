@@ -28,11 +28,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField(
-            "String",
-            "BASE_URL",
-            properties.getProperty("base.url")
-        )
+        buildConfigField("String", "BASE_URL", properties["certi.base.url"].toString())
     }
 
     buildTypes {
@@ -54,11 +50,6 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-    packaging {
-        resources {
-            excludes += "META-INF/gradle/incremental.annotation.processors"
-        }
     }
 }
 
@@ -93,11 +84,11 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.timber)
 
     // Hilt
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
-    implementation(libs.hilt.android.compiler)
     ksp(libs.hilt.android.compiler)
 }
 
