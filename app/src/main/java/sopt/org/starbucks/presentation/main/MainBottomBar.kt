@@ -37,8 +37,7 @@ fun MainBottomBar(
         visible = visible
     ) {
         Row(
-            modifier = modifier
-                .fillMaxWidth()
+            modifier = modifier.fillMaxWidth()
         ) {
             tabs.forEach { tab ->
                 MainBottomBarItem(
