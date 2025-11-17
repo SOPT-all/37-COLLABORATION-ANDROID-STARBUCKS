@@ -35,7 +35,8 @@ fun MainNavHost(
         composable<Pay> { }
         composable<Order> {
             OrderRoute(
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                navigateToMyMenu = navigator::navigateToMyMenu
             )
         }
         composable<Shop> { }

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun HomeRoute(paddingValues: PaddingValues) {
     HomeScreen(
-        modifier = Modifier.padding(paddingValues)
+        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
     )
 }
 

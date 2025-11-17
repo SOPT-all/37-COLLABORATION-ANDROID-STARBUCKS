@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun MyMenuRoute(paddingValues: PaddingValues) {
     MyMenuScreen(
-        modifier = Modifier.padding(paddingValues)
+        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
     )
 }
 

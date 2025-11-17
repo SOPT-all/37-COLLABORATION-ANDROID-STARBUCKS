@@ -8,6 +8,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import sopt.org.starbucks.core.navigtion.Home
+import sopt.org.starbucks.core.navigtion.MyMenu
 import sopt.org.starbucks.core.navigtion.Order
 import sopt.org.starbucks.core.navigtion.Other
 import sopt.org.starbucks.core.navigtion.Pay
@@ -58,6 +59,10 @@ class MainNavigator(
         MainTab.contains {
             currentDestination?.route == it::class.qualifiedName
         }
+
+    fun navigateToMyMenu() {
+        navController.navigate(MyMenu)
+    }
 }
 
 @Composable

@@ -6,7 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun OrderRoute(paddingValues: PaddingValues) {
+fun OrderRoute(
+    paddingValues: PaddingValues,
+    navigateToMyMenu: () -> Unit
+) {
     OrderScreen(
         modifier = Modifier.padding(paddingValues)
     )
