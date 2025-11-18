@@ -6,6 +6,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import sopt.org.starbucks.R
 
@@ -41,7 +42,6 @@ data class StarbucksTypography(
     val headSemiBold12: TextStyle,
     val headMedium16: TextStyle,
     val headMedium15: TextStyle,
-
     // BODY
     val bodyBold22: TextStyle,
     val bodyBold16: TextStyle,
@@ -51,7 +51,6 @@ data class StarbucksTypography(
     val bodyRegular15Variant: TextStyle,
     val bodyRegular13: TextStyle,
     val bodyRegular12: TextStyle,
-
     // CAPTION
     val captionBold11: TextStyle,
     val captionRegular14: TextStyle,
@@ -87,8 +86,8 @@ val defaultStarbucksTypography = StarbucksTypography(
     ),
     headSemiBold12 = TextStyle(
         fontFamily = PretendardFont.SemiBold,
-        fontSize = 12.sp)
-    ,
+        fontSize = 12.sp
+    ),
     headMedium16 = TextStyle(
         fontFamily = PretendardFont.Medium,
         fontSize = 16.sp
@@ -110,7 +109,7 @@ val defaultStarbucksTypography = StarbucksTypography(
     bodySemiBold13 = TextStyle(
         fontFamily = PretendardFont.SemiBold,
         fontSize = 13.sp,
-        lineHeight = 13.sp // 100%
+        lineHeight = 1.em // 100%
     ),
     bodyMedium16 = TextStyle(
         fontFamily = PretendardFont.Medium,
@@ -128,20 +127,20 @@ val defaultStarbucksTypography = StarbucksTypography(
     bodyRegular13 = TextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 13.sp,
-        lineHeight = 18.2.sp // 140%
+        lineHeight = 1.4.em // 140%
     ),
     bodyRegular12 = TextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 12.sp,
-        letterSpacing = (-1.0).sp,
-        lineHeight = 16.2.sp // 135%
+        letterSpacing = (1.0).sp,
+        lineHeight = 1.35.em // 135%
     ),
 
     // CAPTION
     captionBold11 = TextStyle(
         fontFamily = PretendardFont.Bold,
         fontSize = 11.sp,
-        lineHeight = 14.85.sp
+        lineHeight = 1.35.em
     ),
     captionRegular14 = TextStyle(
         fontFamily = PretendardFont.Regular,
@@ -170,7 +169,7 @@ val defaultStarbucksTypography = StarbucksTypography(
     ),
     captionLight10 = TextStyle(
         fontFamily = PretendardFont.Light,
-        fontSize = 10.sp
+        fontSize = 12.sp
     )
 )
 
