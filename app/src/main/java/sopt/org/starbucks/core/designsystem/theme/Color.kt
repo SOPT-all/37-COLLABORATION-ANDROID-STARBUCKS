@@ -12,6 +12,9 @@ val Green400 = Color(0xFF33B981)
 val Green500 = Color(0xFF00A862)
 val Green600 = Color(0xFF00864E)
 val Green700 = Color(0xFF00653B)
+val Green700A10 = Color(0x1A00653B)
+val GreenGradientStart = Color(0x1A00A862)
+val GreenGradientEnd = Color(0xFFA2F1AF)
 
 val Gray100 = Color(0xFFF5F5F5)
 val Gray200 = Color(0xFFDFDFDF)
@@ -42,6 +45,9 @@ data class StarbucksColors(
     val green500: Color = Green500,
     val green600: Color = Green600,
     val green700: Color = Green700,
+    val green700A10: Color = Green700A10,
+    val greenGradientStart: Color = GreenGradientStart,
+    val greenGradientEnd: Color = GreenGradientEnd,
     val gray100: Color = Gray100,
     val gray200: Color = Gray200,
     val gray300: Color = Gray300,
