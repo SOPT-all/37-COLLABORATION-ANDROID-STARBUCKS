@@ -131,7 +131,7 @@ val defaultStarbucksTypography = StarbucksTypography(
     bodyRegular12 = TextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 12.sp,
-        letterSpacing = (1.0).sp,
+        letterSpacing = 1.em, // 1%
         lineHeight = 1.35.em // 135%
     ),
     // CAPTION

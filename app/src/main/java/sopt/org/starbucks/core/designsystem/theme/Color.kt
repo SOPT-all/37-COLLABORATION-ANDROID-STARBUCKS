@@ -47,7 +47,7 @@ val Blue03 = Color(0xFFE3F2F9)
 
 val GreenGradient = Brush.linearGradient(
     colors = listOf(
-        Color(0x00A862).copy(alpha = 0.1f),
+        Color(0xFF00A862).copy(alpha = 0.1f),
         Color(0xFFA2F1AF)
     ),
     start = Offset(0f, 0f),
