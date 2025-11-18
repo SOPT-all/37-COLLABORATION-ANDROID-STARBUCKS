@@ -26,15 +26,22 @@ object StarbucksTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalStarbucksColorsProvider.current
+
+    val typography: StarbucksTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalStarbucksTypographyProvider.current
 }
 
 @Composable
 fun ProvideStarbucksColorsAndTypography(
     colors: StarbucksColors,
+    typography: StarbucksTypography,
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
         LocalStarbucksColorsProvider provides colors,
+        LocalStarbucksTypographyProvider provides typography,
         content = content
     )
 }
@@ -42,7 +49,8 @@ fun ProvideStarbucksColorsAndTypography(
 @Composable
 fun StarbucksTheme(content: @Composable () -> Unit) {
     ProvideStarbucksColorsAndTypography(
-        colors = defaultStarbucksColors
+        colors = defaultStarbucksColors,
+        typography = defaultStarbucksTypography
     ) {
         val view = LocalView.current
         if (!view.isInEditMode) {
