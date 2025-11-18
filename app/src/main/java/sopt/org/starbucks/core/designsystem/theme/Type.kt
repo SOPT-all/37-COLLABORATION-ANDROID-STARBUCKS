@@ -96,7 +96,6 @@ val defaultStarbucksTypography = StarbucksTypography(
         fontFamily = PretendardFont.Medium,
         fontSize = 15.sp
     ),
-
     // BODY
     bodyBold22 = TextStyle(
         fontFamily = PretendardFont.Bold,
@@ -135,7 +134,6 @@ val defaultStarbucksTypography = StarbucksTypography(
         letterSpacing = (1.0).sp,
         lineHeight = 1.35.em // 135%
     ),
-
     // CAPTION
     captionBold11 = TextStyle(
         fontFamily = PretendardFont.Bold,
