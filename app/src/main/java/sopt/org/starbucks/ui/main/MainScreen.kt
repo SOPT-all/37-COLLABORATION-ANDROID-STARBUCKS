@@ -1,4 +1,4 @@
-package sopt.org.starbucks.presentation.main
+package sopt.org.starbucks.ui.main
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold

@@ -1,4 +1,4 @@
-package sopt.org.starbucks.presentation.order
+package sopt.org.starbucks.ui.order
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding

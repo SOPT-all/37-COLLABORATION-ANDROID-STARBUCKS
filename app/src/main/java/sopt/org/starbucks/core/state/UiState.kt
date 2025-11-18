@@ -1,4 +1,4 @@
-package sopt.org.starbucks.core.util
+package sopt.org.starbucks.core.state
 
 sealed interface UiState<out T> {
     data object Empty : UiState<Nothing>

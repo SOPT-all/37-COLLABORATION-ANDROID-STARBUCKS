@@ -1,4 +1,4 @@
-package sopt.org.starbucks.core.navigtion
+package sopt.org.starbucks.core.navigation
 
 import kotlinx.serialization.Serializable
 
