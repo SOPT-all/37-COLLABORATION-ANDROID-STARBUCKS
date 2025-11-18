@@ -1,4 +1,4 @@
-package sopt.org.starbucks.presentation.main
+package sopt.org.starbucks.ui.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -7,12 +7,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import sopt.org.starbucks.core.navigtion.Home
-import sopt.org.starbucks.core.navigtion.MyMenu
-import sopt.org.starbucks.core.navigtion.Order
-import sopt.org.starbucks.core.navigtion.Other
-import sopt.org.starbucks.core.navigtion.Pay
-import sopt.org.starbucks.core.navigtion.Shop
+import sopt.org.starbucks.core.navigation.Home
+import sopt.org.starbucks.core.navigation.MyMenu
+import sopt.org.starbucks.core.navigation.Order
+import sopt.org.starbucks.core.navigation.Other
+import sopt.org.starbucks.core.navigation.Pay
+import sopt.org.starbucks.core.navigation.Shop
 
 class MainNavigator(
     val navController: NavHostController

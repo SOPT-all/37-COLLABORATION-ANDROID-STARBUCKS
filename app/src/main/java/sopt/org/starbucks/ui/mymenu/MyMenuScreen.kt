@@ -1,4 +1,4 @@
-package sopt.org.starbucks.presentation.mymenu
+package sopt.org.starbucks.ui.mymenu
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding

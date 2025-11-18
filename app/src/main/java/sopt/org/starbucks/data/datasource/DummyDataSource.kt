@@ -1,7 +1,15 @@
 package sopt.org.starbucks.data.datasource
 
 import sopt.org.starbucks.data.dto.response.DummyResponseDto
+import sopt.org.starbucks.data.service.DummyService
+import javax.inject.Inject
+import javax.inject.Singleton
 
-interface DummyDataSource {
-    suspend fun dummy(): DummyResponseDto
-}
+@Singleton
+class DummyDataSource
+    @Inject
+    constructor(
+        private val dummyService: DummyService
+    ) {
+        suspend fun dummy(): DummyResponseDto = dummyService.dummy()
+    }

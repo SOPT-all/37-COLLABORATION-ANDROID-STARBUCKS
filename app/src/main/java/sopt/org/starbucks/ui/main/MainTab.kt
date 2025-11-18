@@ -1,4 +1,4 @@
-package sopt.org.starbucks.presentation.main
+package sopt.org.starbucks.ui.main
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -6,12 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.defaultStarbucksColors
-import sopt.org.starbucks.core.navigtion.Home
-import sopt.org.starbucks.core.navigtion.MainTabRoute
-import sopt.org.starbucks.core.navigtion.Order
-import sopt.org.starbucks.core.navigtion.Other
-import sopt.org.starbucks.core.navigtion.Pay
-import sopt.org.starbucks.core.navigtion.Shop
+import sopt.org.starbucks.core.navigation.Home
+import sopt.org.starbucks.core.navigation.MainTabRoute
+import sopt.org.starbucks.core.navigation.Order
+import sopt.org.starbucks.core.navigation.Other
+import sopt.org.starbucks.core.navigation.Pay
+import sopt.org.starbucks.core.navigation.Shop
 
 enum class MainTab(
     @DrawableRes val iconResId: Int,

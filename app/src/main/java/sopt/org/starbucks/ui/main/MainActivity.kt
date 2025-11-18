@@ -1,4 +1,4 @@
-package sopt.org.starbucks.presentation.main
+package sopt.org.starbucks.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
