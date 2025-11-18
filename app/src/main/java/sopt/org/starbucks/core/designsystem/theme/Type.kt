@@ -2,10 +2,13 @@ package sopt.org.starbucks.core.designsystem.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import sopt.org.starbucks.R
@@ -62,110 +65,132 @@ data class StarbucksTypography(
     val captionLight10: TextStyle
 )
 
+private fun starbucksTextStyle(
+    fontFamily: FontFamily,
+    fontSize: TextUnit,
+    lineHeight: TextUnit = TextUnit.Unspecified,
+    letterSpacing: TextUnit = TextUnit.Unspecified,
+    textDecoration: TextDecoration? = null
+): TextStyle =
+    TextStyle(
+        fontFamily = fontFamily,
+        fontSize = fontSize,
+        lineHeight = lineHeight,
+        letterSpacing = letterSpacing,
+        textDecoration = textDecoration,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        ),
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Center,
+            trim = LineHeightStyle.Trim.None
+        )
+    )
+
 val defaultStarbucksTypography = StarbucksTypography(
     // HEAD
-    headBold21 = TextStyle(
+    headBold21 = starbucksTextStyle(
         fontFamily = PretendardFont.Bold,
         fontSize = 21.sp
     ),
-    headBold20 = TextStyle(
+    headBold20 = starbucksTextStyle(
         fontFamily = PretendardFont.Bold,
         fontSize = 20.sp
     ),
-    headBold17 = TextStyle(
+    headBold17 = starbucksTextStyle(
         fontFamily = PretendardFont.Bold,
         fontSize = 17.sp
     ),
-    headSemiBold18 = TextStyle(
+    headSemiBold18 = starbucksTextStyle(
         fontFamily = PretendardFont.SemiBold,
         fontSize = 18.sp
     ),
-    headSemiBold14 = TextStyle(
+    headSemiBold14 = starbucksTextStyle(
         fontFamily = PretendardFont.SemiBold,
         fontSize = 14.sp
     ),
-    headSemiBold12 = TextStyle(
+    headSemiBold12 = starbucksTextStyle(
         fontFamily = PretendardFont.SemiBold,
         fontSize = 12.sp
     ),
-    headMedium16 = TextStyle(
+    headMedium16 = starbucksTextStyle(
         fontFamily = PretendardFont.Medium,
         fontSize = 16.sp
     ),
-    headMedium15 = TextStyle(
+    headMedium15 = starbucksTextStyle(
         fontFamily = PretendardFont.Medium,
         fontSize = 15.sp
     ),
     // BODY
-    bodyBold22 = TextStyle(
+    bodyBold22 = starbucksTextStyle(
         fontFamily = PretendardFont.Bold,
         fontSize = 22.sp
     ),
-    bodyBold16 = TextStyle(
+    bodyBold16 = starbucksTextStyle(
         fontFamily = PretendardFont.Bold,
         fontSize = 16.sp
     ),
-    bodySemiBold13 = TextStyle(
+    bodySemiBold13 = starbucksTextStyle(
         fontFamily = PretendardFont.SemiBold,
         fontSize = 13.sp,
         lineHeight = 1.em // 100%
     ),
-    bodyMedium16 = TextStyle(
+    bodyMedium16 = starbucksTextStyle(
         fontFamily = PretendardFont.Medium,
         fontSize = 16.sp
     ),
-    bodyRegular15 = TextStyle(
+    bodyRegular15 = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 15.sp
     ),
-    bodyRegular15Variant = TextStyle(
+    bodyRegular15Variant = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 15.sp,
         lineHeight = 20.sp
     ),
-    bodyRegular13 = TextStyle(
+    bodyRegular13 = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 13.sp,
         lineHeight = 1.4.em // 140%
     ),
-    bodyRegular12 = TextStyle(
+    bodyRegular12 = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 12.sp,
         letterSpacing = 0.01.em, // 1%
         lineHeight = 1.35.em // 135%
     ),
     // CAPTION
-    captionBold11 = TextStyle(
+    captionBold11 = starbucksTextStyle(
         fontFamily = PretendardFont.Bold,
         fontSize = 11.sp,
         lineHeight = 1.35.em
     ),
-    captionRegular14 = TextStyle(
+    captionRegular14 = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 14.sp
     ),
-    captionRegular13 = TextStyle(
+    captionRegular13 = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 13.sp
     ),
-    captionRegular12 = TextStyle(
+    captionRegular12 = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 12.sp
     ),
-    captionRegular12Underline = TextStyle(
+    captionRegular12Underline = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 12.sp,
         textDecoration = TextDecoration.Underline
     ),
-    captionRegular11 = TextStyle(
+    captionRegular11 = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 11.sp
     ),
-    captionRegular10 = TextStyle(
+    captionRegular10 = starbucksTextStyle(
         fontFamily = PretendardFont.Regular,
         fontSize = 10.sp
     ),
-    captionLight10 = TextStyle(
+    captionLight10 = starbucksTextStyle(
         fontFamily = PretendardFont.Light,
         fontSize = 12.sp
     )
