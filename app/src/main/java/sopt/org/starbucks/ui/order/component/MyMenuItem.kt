@@ -137,8 +137,8 @@ private fun MyMenuItemButton(
 ) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(44.dp))
-            .border(1.dp, borderColor, RoundedCornerShape(44.dp))
+            .clip(RoundedCornerShape(20.dp))
+            .border(1.dp, borderColor, RoundedCornerShape(20.dp))
             .background(backgroundColor)
             .padding(vertical = 7.dp, horizontal = 12.dp)
     ) {
