@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.bottomBorder
 import sopt.org.starbucks.core.util.noRippleClickable
 import sopt.org.starbucks.ui.order.OrderTab
 
@@ -38,53 +38,47 @@ fun OrderHeader(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 16.dp)
+            .bottomBorder(1.dp, StarbucksTheme.colors.gray200)
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 13.dp, top = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(13.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 13.dp),
-            verticalArrangement = Arrangement.spacedBy(13.dp)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_back_24),
-                    contentDescription = null,
-                    tint = StarbucksTheme.colors.gray500
-                )
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_search),
-                    contentDescription = null,
-                    tint = StarbucksTheme.colors.gray800
-                )
-            }
-            Text(
-                text = "나만의 메뉴",
-                style = StarbucksTheme.typography.headBold21,
-                color = StarbucksTheme.colors.black,
-                modifier = Modifier.padding(vertical = 4.dp)
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_back_24),
+                contentDescription = null,
+                tint = StarbucksTheme.colors.gray500
             )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                OrderTab.entries.forEach { tab ->
-                    TabButton(
-                        text = tab.text,
-                        selected = tab == selectedTab,
-                        onClick = {
-                            if (tab != selectedTab) {
-                                onTabSelected(tab)
-                            }
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_search),
+                contentDescription = null,
+                tint = StarbucksTheme.colors.gray800
+            )
+        }
+        Text(
+            text = "나만의 메뉴",
+            style = StarbucksTheme.typography.headBold21,
+            color = StarbucksTheme.colors.black,
+            modifier = Modifier.padding(vertical = 4.dp)
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            OrderTab.entries.forEach { tab ->
+                TabButton(
+                    text = tab.text,
+                    selected = tab == selectedTab,
+                    onClick = {
+                        if (tab != selectedTab) {
+                            onTabSelected(tab)
                         }
-                    )
-                }
+                    }
+                )
             }
         }
-        HorizontalDivider(color = StarbucksTheme.colors.gray200)
     }
 }
 
