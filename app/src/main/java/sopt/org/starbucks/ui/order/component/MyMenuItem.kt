@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,83 +41,90 @@ fun MyMenuItem(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 12.dp, bottom = 20.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier.fillMaxWidth()
     ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_cancel),
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.End),
-            tint = StarbucksTheme.colors.gray200
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(24.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(top = 12.dp, bottom = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            AsyncImage(
-                model = imgUrl,
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_cancel),
                 contentDescription = null,
-                modifier = Modifier
-                    .size(94.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
+                modifier = Modifier.align(Alignment.End),
+                tint = StarbucksTheme.colors.gray200
             )
-            Column(
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+                AsyncImage(
+                    model = imgUrl,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(94.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = title,
+                            style = StarbucksTheme.typography.headMedium15,
+                            color = StarbucksTheme.colors.black
+                        )
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_pencil),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(18.dp)
+                                .noRippleClickable { onEditClick() },
+                            tint = StarbucksTheme.colors.gray700
+                        )
+                    }
                     Text(
-                        text = title,
-                        style = StarbucksTheme.typography.headMedium15,
+                        text = menuName,
+                        style = StarbucksTheme.typography.captionRegular13,
+                        color = StarbucksTheme.colors.gray600
+                    )
+                    Text(
+                        text = option,
+                        style = StarbucksTheme.typography.captionRegular13,
+                        color = StarbucksTheme.colors.gray600
+                    )
+                    Text(
+                        text = price,
+                        style = StarbucksTheme.typography.headSemiBold14,
                         color = StarbucksTheme.colors.black
                     )
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_pencil),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(18.dp)
-                            .noRippleClickable { onEditClick() },
-                        tint = StarbucksTheme.colors.gray700
-                    )
                 }
-                Text(
-                    text = menuName,
-                    style = StarbucksTheme.typography.captionRegular13,
-                    color = StarbucksTheme.colors.gray600
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(11.dp),
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                MyMenuItemButton(
+                    text = "담기",
+                    textColor = StarbucksTheme.colors.green500,
+                    backgroundColor = StarbucksTheme.colors.transparent
                 )
-                Text(
-                    text = option,
-                    style = StarbucksTheme.typography.captionRegular13,
-                    color = StarbucksTheme.colors.gray600
-                )
-                Text(
-                    text = price,
-                    style = StarbucksTheme.typography.headSemiBold14,
-                    color = StarbucksTheme.colors.black
+                MyMenuItemButton(
+                    text = "주문하기",
+                    textColor = StarbucksTheme.colors.white,
+                    backgroundColor = StarbucksTheme.colors.green500
                 )
             }
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(11.dp),
-            modifier = Modifier.align(Alignment.End)
-        ) {
-            MyMenuItemButton(
-                text = "담기",
-                textColor = StarbucksTheme.colors.green500,
-                backgroundColor = StarbucksTheme.colors.transparent
-            )
-            MyMenuItemButton(
-                text = "주문하기",
-                textColor = StarbucksTheme.colors.white,
-                backgroundColor = StarbucksTheme.colors.green500
-            )
-        }
+        HorizontalDivider(
+            color = StarbucksTheme.colors.gray200
+        )
     }
 }
 
