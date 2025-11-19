@@ -95,16 +95,19 @@ private fun TabButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val shadowColor = Color(0f, 0f, 0f, 0.10f)
+    val shadowColor = Color(0f, 0f, 0f, 0.50f)
+    val roundedCornerShape = RoundedCornerShape(22.dp)
+
     Box(
         modifier = modifier
             .shadow(
                 elevation = if (selected) 0.dp else 4.dp,
-                shape = RoundedCornerShape(22.dp),
+                shape = roundedCornerShape,
+                clip = false,
                 ambientColor = shadowColor,
                 spotColor = shadowColor
-            ).clip(RoundedCornerShape(22.dp))
-            .background(if (selected) StarbucksTheme.colors.gray900 else StarbucksTheme.colors.white)
+            ).clip(roundedCornerShape)
+            .background(if (selected) StarbucksTheme.colors.gray900 else StarbucksTheme.colors.white, roundedCornerShape)
             .noRippleClickable(onClick)
             .padding(vertical = 5.dp, horizontal = 20.dp)
     ) {
