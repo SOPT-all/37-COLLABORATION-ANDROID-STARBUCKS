@@ -84,7 +84,7 @@ fun MyMenuItem(
                             contentDescription = null,
                             modifier = Modifier
                                 .size(18.dp)
-                                .noRippleClickable { onEditClick() },
+                                .noRippleClickable(onEditClick),
                             tint = StarbucksTheme.colors.gray700
                         )
                     }
@@ -122,9 +122,7 @@ fun MyMenuItem(
                 )
             }
         }
-        HorizontalDivider(
-            color = StarbucksTheme.colors.gray200
-        )
+        HorizontalDivider(color = StarbucksTheme.colors.gray200)
     }
 }
 
