@@ -1,4 +1,4 @@
-package sopt.org.starbucks.ui.edit.component
+package sopt.org.starbucks.ui.mymenu.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
