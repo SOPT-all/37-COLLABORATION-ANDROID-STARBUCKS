@@ -165,7 +165,7 @@ fun QuickOrderItem(
                         .clip(RoundedCornerShape(44.dp))
                         .background(Color.Black)
                         .noRippleClickable {}
-                        .padding(start = 9.dp, end = 9.dp, top = 6.dp, bottom = 5.dp)
+                        .padding(start = 9.dp, end = 9.dp, top = 5.dp, bottom = 5.dp)
                 ) {
                     Text(
                         text = "바로 주문하기",
