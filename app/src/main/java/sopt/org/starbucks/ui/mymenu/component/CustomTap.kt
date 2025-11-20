@@ -1,7 +1,6 @@
 package sopt.org.starbucks.ui.mymenu.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -37,31 +36,29 @@ fun TabToggle() {
             .background(
                 color = StarbucksTheme.colors.gray100,
                 shape = RoundedCornerShape(19.dp)
-            ),
+            )
     ) {
         tabs.forEachIndexed { index, title ->
             Box(
                 modifier = Modifier
                     .weight(1f)
                     .shadow(
-                        elevation = if(selectedTab == index) 2.dp else 0.dp,
+                        elevation = if (selectedTab == index) 2.dp else 0.dp,
                         shape = RoundedCornerShape(19.dp),
                         spotColor = Color.Black.copy(0.3f),
                         ambientColor = Color.Black.copy(0.1f)
-                    )
-                    .fillMaxHeight()
+                    ).fillMaxHeight()
                     .background(
                         color = if (selectedTab == index) StarbucksTheme.colors.white else Color.Transparent,
                         shape = RoundedCornerShape(19.dp)
-                    )
-                    .noRippleClickable { selectedTab = index },
+                    ).noRippleClickable { selectedTab = index },
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = title,
                     color = if (selectedTab == index) StarbucksTheme.colors.blue02 else StarbucksTheme.colors.gray500,
-                    style = StarbucksTheme.typography.headSemiBold14,
-                    )
+                    style = StarbucksTheme.typography.headSemiBold14
+                )
             }
         }
     }

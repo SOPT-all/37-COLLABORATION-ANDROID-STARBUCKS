@@ -3,7 +3,6 @@ package sopt.org.starbucks.ui.mymenu.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -19,9 +18,7 @@ import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 
 @Composable
-fun ProductInfoButton(
-    modifier: Modifier = Modifier
-) {
+fun ProductInfoButton(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -52,7 +49,6 @@ fun ProductInfoButton(
 @Composable
 private fun ProductInfoButtonPreview() {
     StarbucksTheme {
-        ProductInfoButton(
-        )
+        ProductInfoButton()
     }
 }

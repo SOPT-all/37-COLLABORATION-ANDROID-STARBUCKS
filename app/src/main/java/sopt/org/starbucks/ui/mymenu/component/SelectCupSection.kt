@@ -13,10 +13,8 @@ import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 
 @Composable
-fun SelectCupSection(
-    modifier: Modifier = Modifier
-) {
-    Column{
+fun SelectCupSection(modifier: Modifier = Modifier) {
+    Column {
         Text(
             text = "컵 선택",
             style = StarbucksTheme.typography.bodyBold16,

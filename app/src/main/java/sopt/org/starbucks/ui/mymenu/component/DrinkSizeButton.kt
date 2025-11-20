@@ -51,12 +51,10 @@ fun DrinkSizeButton(
                 width = 1.dp,
                 color = if (isSelected) StarbucksTheme.colors.green500 else StarbucksTheme.colors.gray600,
                 shape = RoundedCornerShape(size = 8.dp)
-            )
-            .background(
+            ).background(
                 color = StarbucksTheme.colors.white,
                 shape = RoundedCornerShape(size = 8.dp)
-            )
-            .noRippleClickable(onClick),
+            ).noRippleClickable(onClick),
         contentAlignment = Alignment.Center
     ) {
         Column(

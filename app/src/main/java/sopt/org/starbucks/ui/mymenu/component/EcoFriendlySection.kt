@@ -37,8 +37,7 @@ fun EcoFriendlySection(
             .background(
                 color = Color(0x1A00653B),
                 shape = RoundedCornerShape(size = 10.dp)
-            )
-            .padding(start = 19.dp, top = 10.dp, end = 10.dp, bottom = 10.dp)
+            ).padding(start = 19.dp, top = 10.dp, end = 10.dp, bottom = 10.dp)
     ) {
         Column(
             modifier = Modifier.align(Alignment.CenterStart),
@@ -56,7 +55,6 @@ fun EcoFriendlySection(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .padding(bottom = 12.dp)
-
             ) {
                 Icon(
                     painter = painterResource(
@@ -73,7 +71,7 @@ fun EcoFriendlySection(
                     text = "개인컵 사용하기",
                     style = StarbucksTheme.typography.captionRegular13,
                     color = StarbucksTheme.colors.gray700,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Center
                 )
             }
         }
@@ -95,13 +93,13 @@ private fun EcoFriendlySectionPreview() {
     StarbucksTheme {
         Column {
             EcoFriendlySection(
-                isPersonalCupChecked = false,
+                isPersonalCupChecked = false
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             EcoFriendlySection(
-                isPersonalCupChecked = true,
+                isPersonalCupChecked = true
             )
         }
     }

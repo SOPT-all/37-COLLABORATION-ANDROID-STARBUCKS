@@ -25,8 +25,7 @@ fun NoticeBox(
                 width = 1.dp,
                 color = StarbucksTheme.colors.gray200,
                 shape = RoundedCornerShape(6.dp)
-            )
-            .padding(start = 9.dp, top = 13.dp, end = 9.dp, bottom = 13.dp)
+            ).padding(start = 9.dp, top = 13.dp, end = 9.dp, bottom = 13.dp)
     ) {
         notices.forEachIndexed { index, notice ->
             Text(
@@ -34,7 +33,7 @@ fun NoticeBox(
                 style = StarbucksTheme.typography.captionRegular11,
                 color = StarbucksTheme.colors.gray600
             )
-            if (index < notices.size - 1) {// 마지막 항목 아니면
+            if (index < notices.size - 1) { // 마지막 항목 아니면
                 Spacer(
                     modifier = Modifier.padding(top = 3.dp)
                 )
@@ -50,8 +49,8 @@ private fun NoticeBoxPreview() {
         NoticeBox(
             notices = listOf(
                 "* 리치 과육의 숙 캡슐이 있을 수 있지만 안심하고 드세요.",
-                "* 대체당(츄스티아)을 일부 사용하여 당과 칼로리를 낮췄습니다.",
-            ),
+                "* 대체당(츄스티아)을 일부 사용하여 당과 칼로리를 낮췄습니다."
+            )
         )
     }
 }

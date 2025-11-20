@@ -44,7 +44,6 @@ fun DrinkTitleSection(
                     style = StarbucksTheme.typography.bodyRegular13,
                     color = StarbucksTheme.colors.green500,
                     modifier = Modifier.padding(horizontal = 10.dp)
-
                 )
             }
         }
@@ -76,7 +75,10 @@ private fun DrinkTitleSectionPreview() {
         DrinkTitleSection(
             koreanTitle = "아이스 핑크 팝 캐모마일 릴렉서",
             englishTitle = "Iced Pink Pop Chamomile Relaxer",
-            description = "크리스마스에 어울리는 상쾌한 핑크팝과 캐모마일 릴렉서! 리치, 레몬그라스, 캐모마일의 차분하면서도 새콤달콤한 조합 그리스마스 오너먼트가 떠오르는 핑크 리치 보바로 팝! 터지는 식감의 재미와 리치 풍미를 더했습니다",
+            description = "크리스마스에 어울리는 상쾌한 핑크팝과 캐모마일 릴렉서! " +
+                "리치, 레몬그라스, 캐모마일의 차분하면서도 새콤달콤한 조합 " +
+                "그리스마스 오너먼트가 떠오르는 핑크 리치 보바로 팝! " +
+                "터지는 식감의 재미와 리치 풍미를 더했습니다",
             isNew = true,
             modifier = Modifier.padding(16.dp)
         )

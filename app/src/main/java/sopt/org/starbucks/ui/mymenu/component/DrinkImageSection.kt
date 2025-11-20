@@ -19,9 +19,7 @@ import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 
 @Composable
-fun DrinkImageSection(
-    modifier: Modifier = Modifier
-) {
+fun DrinkImageSection(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -60,7 +58,7 @@ fun DrinkImageSection(
 
         // 음료 이미지
         Icon(
-            painter = painterResource(id=R.drawable.ic_order),
+            painter = painterResource(id = R.drawable.ic_order),
             contentDescription = "중앙 음료 이미자",
             modifier = Modifier
                 .align(Alignment.Center)
