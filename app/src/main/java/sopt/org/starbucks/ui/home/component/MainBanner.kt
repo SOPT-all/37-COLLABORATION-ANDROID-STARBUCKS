@@ -23,7 +23,7 @@ import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 fun MainBanner(
     modifier: Modifier = Modifier,
     line1: String,
-    line2: String,
+    line2: String
 ) {
     Box(
         modifier = modifier
@@ -45,7 +45,7 @@ fun MainBanner(
             Text(
                 text = line1,
                 style = StarbucksTheme.typography.headBold21,
-                color = StarbucksTheme.colors.black,
+                color = StarbucksTheme.colors.black
             )
 
             Spacer(modifier = Modifier.height(7.dp))
@@ -53,7 +53,7 @@ fun MainBanner(
             Text(
                 text = line2,
                 style = StarbucksTheme.typography.headBold21,
-                color = StarbucksTheme.colors.black,
+                color = StarbucksTheme.colors.black
             )
         }
     }
@@ -70,7 +70,7 @@ private fun MainBannerPreview() {
         Box(modifier = Modifier.fillMaxSize().padding(0.dp)) {
             MainBanner(
                 line1 = "미국에서 온 케이크 팝과",
-                line2 = "사탕 같은 시간을 보내요",
+                line2 = "사탕 같은 시간을 보내요"
             )
         }
     }

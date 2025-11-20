@@ -2,7 +2,6 @@ package sopt.org.starbucks.ui.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.noRippleClickable
 
 @Composable
 fun QuickOrderRegisterItem(
@@ -47,11 +47,11 @@ fun QuickOrderRegisterItem(
                 drawRoundRect(
                     color = borderColor,
                     size = this.size,
-                    cornerRadius = androidx.compose.ui.geometry.CornerRadius(12.dp.toPx(), 12.dp.toPx()),
+                    cornerRadius = androidx.compose.ui.geometry
+                        .CornerRadius(12.dp.toPx(), 12.dp.toPx()),
                     style = stroke
                 )
-            }
-            .size(width = 255.dp, height = 144.dp)
+            }.size(width = 255.dp, height = 144.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -107,7 +107,7 @@ fun QuickOrderRegisterItem(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .size(26.dp)
-                    .clickable { onClick() }
+                    .noRippleClickable { onClick() }
             )
         }
     }

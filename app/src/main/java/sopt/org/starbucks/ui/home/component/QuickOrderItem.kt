@@ -2,7 +2,6 @@ package sopt.org.starbucks.ui.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.noRippleClickable
 
 @Composable
 fun QuickOrderItem(
@@ -47,7 +47,6 @@ fun QuickOrderItem(
             .clip(RoundedCornerShape(12.dp))
             .background(StarbucksTheme.colors.gray100)
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -62,11 +61,14 @@ fun QuickOrderItem(
                 Icon(
                     painter = painterResource(R.drawable.ic_favorite),
                     contentDescription = null,
-                    tint = if (isFavorite) StarbucksTheme.colors.green500
-                        else StarbucksTheme.colors.gray400,
+                    tint = if (isFavorite) {
+                        StarbucksTheme.colors.green500
+                    } else {
+                        StarbucksTheme.colors.gray400
+                    },
                     modifier = Modifier
                         .padding(start = 2.dp, end = 1.dp, top = 2.dp, bottom = 2.dp)
-                        .clickable { isFavorite = !isFavorite }
+                        .noRippleClickable { isFavorite = !isFavorite }
                 )
             }
 
@@ -142,7 +144,6 @@ fun QuickOrderItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 // 매장 설정 -> 아이콘 + 텍스트
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
@@ -163,7 +164,7 @@ fun QuickOrderItem(
                     modifier = Modifier
                         .clip(RoundedCornerShape(44.dp))
                         .background(Color.Black)
-                        .clickable {}
+                        .noRippleClickable {}
                         .padding(start = 9.dp, end = 9.dp, top = 6.dp, bottom = 5.dp)
                 ) {
                     Text(

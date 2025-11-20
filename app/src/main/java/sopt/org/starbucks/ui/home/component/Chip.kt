@@ -5,7 +5,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.FlowRow
@@ -25,9 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.noRippleClickable
 
 sealed interface ChipStyle {
     data object White : ChipStyle
+
     data object GreenOutline : ChipStyle
 }
 
@@ -66,10 +67,9 @@ fun Chip(
             .background(backgroundColor, shape)
             .then(borderStroke?.let { Modifier.border(it, shape) } ?: Modifier)
             .padding(horizontal = 15.dp, vertical = 10.dp)
-            .clickable { onClick() },
+            .noRippleClickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         // 아이콘 + 텍스트 간격 10dp
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -115,7 +115,6 @@ fun ChipWithNewTag(
     onClick: () -> Unit = {}
 ) {
     Box(modifier = modifier) {
-
         Chip(
             style = style,
             icon = icon,
