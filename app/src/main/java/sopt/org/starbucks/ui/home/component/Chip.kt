@@ -1,0 +1,194 @@
+package sopt.org.starbucks.ui.home.component
+
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import sopt.org.starbucks.R
+import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+
+sealed interface ChipStyle {
+    data object White : ChipStyle
+    data object GreenOutline : ChipStyle
+}
+
+@Composable
+fun Chip(
+    modifier: Modifier = Modifier,
+    style: ChipStyle,
+    @DrawableRes icon: Int? = null,
+    text: String,
+    trailingText: String? = null,
+    textColor: Color? = null,
+    trailingTextColor: Color? = null,
+    onClick: () -> Unit = {}
+) {
+    val shape = RoundedCornerShape(22.dp)
+
+    val (backgroundColor, borderStroke, contentColor) = when (style) {
+        ChipStyle.White -> Triple(
+            StarbucksTheme.colors.white,
+            null,
+            StarbucksTheme.colors.gray600
+        )
+
+        ChipStyle.GreenOutline -> Triple(
+            StarbucksTheme.colors.white,
+            BorderStroke(1.dp, StarbucksTheme.colors.greenGradient),
+            StarbucksTheme.colors.green400
+        )
+    }
+
+    val finalTextColor = textColor ?: contentColor
+    val finalTrailingTextColor = trailingTextColor ?: contentColor
+
+    Row(
+        modifier = modifier
+            .background(backgroundColor, shape)
+            .then(borderStroke?.let { Modifier.border(it, shape) } ?: Modifier)
+            .padding(horizontal = 15.dp, vertical = 10.dp)
+            .clickable { onClick() },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        // 아이콘 + 텍스트 간격 10dp
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            icon?.let {
+                Icon(
+                    painter = painterResource(id = it),
+                    contentDescription = null,
+                    tint = Color.Unspecified,
+                    modifier = Modifier.size(19.dp)
+                )
+            }
+
+            Text(
+                text = text,
+                style = StarbucksTheme.typography.captionRegular14,
+                color = finalTextColor
+            )
+        }
+
+        // trailingText는 오른쪽, 앞 간격 15dp
+        trailingText?.let {
+            Text(
+                text = it,
+                style = StarbucksTheme.typography.captionRegular14,
+                color = finalTrailingTextColor,
+                modifier = Modifier.padding(start = 15.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun ChipWithNewTag(
+    modifier: Modifier = Modifier,
+    style: ChipStyle,
+    @DrawableRes icon: Int? = null,
+    text: String,
+    trailingText: String? = null,
+    textColor: Color? = null,
+    trailingTextColor: Color? = null,
+    onClick: () -> Unit = {}
+) {
+    Box(modifier = modifier) {
+
+        Chip(
+            style = style,
+            icon = icon,
+            text = text,
+            trailingText = trailingText,
+            textColor = textColor,
+            trailingTextColor = trailingTextColor,
+            onClick = onClick
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.ic_tag_new),
+            contentDescription = null,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .offset(x = 7.dp, y = (-8).dp)
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    widthDp = 360,
+    heightDp = 300
+)
+@Composable
+fun ChipPreview() {
+    StarbucksTheme {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_tag_new),
+                contentDescription = null
+            )
+
+            ChipWithNewTag(
+                style = ChipStyle.GreenOutline,
+                icon = R.drawable.ic_green_star,
+                text = "Green",
+                trailingText = "2",
+                textColor = StarbucksTheme.colors.gray600,
+                trailingTextColor = StarbucksTheme.colors.green500
+            )
+
+            Chip(
+                style = ChipStyle.GreenOutline,
+                icon = R.drawable.ic_green_star,
+                text = "Green",
+                trailingText = "2",
+                textColor = StarbucksTheme.colors.gray600,
+                trailingTextColor = StarbucksTheme.colors.green500
+            )
+
+            Chip(
+                style = ChipStyle.White,
+                icon = R.drawable.ic_coupon,
+                text = "Coupon"
+            )
+
+            Chip(
+                style = ChipStyle.White,
+                icon = R.drawable.ic_pay2,
+                text = "Pay"
+            )
+
+            Chip(
+                style = ChipStyle.GreenOutline,
+                icon = R.drawable.ic_buddy_pass,
+                text = "Buddy Pass"
+            )
+        }
+    }
+}
