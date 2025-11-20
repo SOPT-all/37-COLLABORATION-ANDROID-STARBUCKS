@@ -1,4 +1,4 @@
-package sopt.org.starbucks.ui.order
+package sopt.org.starbucks.ui.mymenu
 
 enum class DialogType(
     val label: String,

@@ -1,4 +1,4 @@
-package sopt.org.starbucks.ui.order.component
+package sopt.org.starbucks.ui.mymenu.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.util.noRippleClickable
-import sopt.org.starbucks.ui.order.DialogType
+import sopt.org.starbucks.ui.mymenu.DialogType
 
 @Composable
 fun StarbucksOrderDialog(
