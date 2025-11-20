@@ -38,7 +38,7 @@ fun DrinkImageSection(
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = "뒤로가기",
-                tint = StarbucksTheme.colors.white,
+                tint = Color.Unspecified,
                 modifier = Modifier.size(33.dp)
             )
         }
@@ -53,8 +53,8 @@ fun DrinkImageSection(
             Icon(
                 painter = painterResource(id = R.drawable.ic_share),
                 contentDescription = "공유",
-                tint = StarbucksTheme.colors.white,
-                modifier = Modifier.size(33.dp)
+                modifier = Modifier.size(33.dp),
+                tint = Color.Unspecified
             )
         }
 
@@ -78,7 +78,7 @@ fun DrinkImageSection(
             Icon(
                 painter = painterResource(id = R.drawable.ic_image),
                 contentDescription = "이미지",
-                tint = StarbucksTheme.colors.white,
+                tint = Color.Unspecified,
                 modifier = Modifier.size(33.dp)
             )
         }
