@@ -106,7 +106,7 @@ fun QuickOrderHeaderPreview() {
 
         QuickOrderHeader(
             selectedTab = selectedTab,
-            onTabSelected = { }
+            onTabSelected = { selectedTab = it }
         )
     }
 }
