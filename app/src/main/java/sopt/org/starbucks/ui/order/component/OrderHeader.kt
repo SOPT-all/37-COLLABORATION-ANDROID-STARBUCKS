@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -89,7 +90,6 @@ private fun TabButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val shadowColor = Color(0f, 0f, 0f, 0.30f)
     val roundedCornerShape = RoundedCornerShape(22.dp)
 
     Box(
@@ -98,8 +98,8 @@ private fun TabButton(
                 elevation = if (selected) 0.dp else 4.dp,
                 shape = roundedCornerShape,
                 clip = false,
-                ambientColor = shadowColor,
-                spotColor = shadowColor
+                ambientColor = Color.Black.copy(alpha = 0.2f),
+                spotColor = Color.Black.copy(alpha = 0.4f)
             ).clip(roundedCornerShape)
             .background(if (selected) StarbucksTheme.colors.gray900 else StarbucksTheme.colors.white, roundedCornerShape)
             .noRippleClickable(onClick)
@@ -118,9 +118,15 @@ private fun TabButton(
 private fun OrderHeaderPreview() {
     var selectedTab by remember { mutableStateOf(OrderTab.ALL) }
     StarbucksTheme {
-        OrderHeader(
-            selectedTab = selectedTab,
-            onTabSelected = { selectedTab = it }
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(StarbucksTheme.colors.white)
+        ) {
+            OrderHeader(
+                selectedTab = selectedTab,
+                onTabSelected = { selectedTab = it }
+            )
+        }
     }
 }
