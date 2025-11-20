@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -29,14 +30,15 @@ import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.util.bottomBorder
 import sopt.org.starbucks.core.util.noRippleClickable
+import sopt.org.starbucks.core.util.toStringWithFormat
 
 @Composable
 fun MyMenuItem(
     imgUrl: String,
-    title: String,
+    myMenuName: String,
     menuName: String,
     option: String,
-    price: String,
+    price: Int,
     onEditClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -73,9 +75,10 @@ fun MyMenuItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = title,
+                        text = myMenuName,
                         style = StarbucksTheme.typography.headMedium15,
-                        color = StarbucksTheme.colors.black
+                        color = StarbucksTheme.colors.black,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_pencil),
@@ -89,17 +92,20 @@ fun MyMenuItem(
                 Text(
                     text = menuName,
                     style = StarbucksTheme.typography.captionRegular13,
-                    color = StarbucksTheme.colors.gray600
+                    color = StarbucksTheme.colors.gray600,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = option,
                     style = StarbucksTheme.typography.captionRegular13,
-                    color = StarbucksTheme.colors.gray600
+                    color = StarbucksTheme.colors.gray600,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = price,
+                    text = price.toStringWithFormat() + "원",
                     style = StarbucksTheme.typography.headSemiBold14,
-                    color = StarbucksTheme.colors.black
+                    color = StarbucksTheme.colors.black,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }
@@ -152,10 +158,10 @@ private fun MyMenuItemPreview() {
     StarbucksTheme {
         MyMenuItem(
             imgUrl = "https://i.pinimg.com/1200x/27/78/0f/27780fc651dff0eb419b06ecf93a3055.jpg",
-            title = "상큼발랄 프레셔",
+            myMenuName = "상큼발랄 프레셔",
             menuName = "아이스 핑크 팝 캐모마일 릴렉서",
             option = "ICED | Tall",
-            price = "6,500원",
+            price = 6500,
             onEditClick = {}
         )
     }

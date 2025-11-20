@@ -89,7 +89,7 @@ private fun TabButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val shadowColor = Color(0f, 0f, 0f, 0.50f)
+    val shadowColor = Color(0f, 0f, 0f, 0.30f)
     val roundedCornerShape = RoundedCornerShape(22.dp)
 
     Box(

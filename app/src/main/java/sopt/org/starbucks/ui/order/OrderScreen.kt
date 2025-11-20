@@ -22,14 +22,22 @@ fun OrderRoute(
     paddingValues: PaddingValues,
     navigateToMyMenu: () -> Unit
 ) {
+    var selectedTab by remember { mutableStateOf(OrderTab.ALL) }
     OrderScreen(
-        modifier = Modifier.padding(paddingValues)
+        selectedTab = selectedTab,
+        modifier = Modifier.padding(paddingValues),
+        onTabSelected = { selectedTab = it },
+        onEditClick = {}
     )
 }
 
 @Composable
-fun OrderScreen(modifier: Modifier = Modifier) {
-    var selectedTab by remember { mutableStateOf(OrderTab.ALL) }
+fun OrderScreen(
+    selectedTab: OrderTab,
+    onTabSelected: (OrderTab) -> Unit,
+    modifier: Modifier = Modifier,
+    onEditClick: () -> Unit
+) {
     Column(
         modifier = modifier
     ) {
@@ -41,18 +49,18 @@ fun OrderScreen(modifier: Modifier = Modifier) {
             item {
                 OrderHeader(
                     selectedTab = selectedTab,
-                    onTabSelected = { selectedTab = it }
+                    onTabSelected = onTabSelected
                 )
             }
 
             item {
                 MyMenuItem(
                     imgUrl = "https://i.pinimg.com/1200x/27/78/0f/27780fc651dff0eb419b06ecf93a3055.jpg",
-                    title = "상큼발랄 프레셔",
+                    myMenuName = "상큼발랄 프레셔",
                     menuName = "아이스 핑크 팝 캐모마일 릴렉서",
                     option = "ICED | Tall",
-                    price = "6,500원",
-                    onEditClick = {}
+                    price = 6500,
+                    onEditClick = onEditClick
                 )
             }
         }
@@ -63,7 +71,13 @@ fun OrderScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun OrderScreenPreview() {
+    var selectedTab by remember { mutableStateOf(OrderTab.ALL) }
+
     StarbucksTheme {
-        OrderScreen()
+        OrderScreen(
+            selectedTab = selectedTab,
+            onTabSelected = { selectedTab = it },
+            onEditClick = {}
+        )
     }
 }
