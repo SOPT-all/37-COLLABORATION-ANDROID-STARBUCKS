@@ -12,6 +12,6 @@ enum class OnlineStoreType(
         date = "2025. 10. 30 (목) - 11.9 (일)"
     ),
     HEART(
-        image = R.drawable.img_home_online_02,
+        image = R.drawable.img_home_online_02
     )
 }

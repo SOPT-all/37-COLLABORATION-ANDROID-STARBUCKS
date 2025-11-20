@@ -21,9 +21,7 @@ import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 
 @Composable
-fun NewsContent(
-    modifier: Modifier = Modifier
-) {
+fun NewsContent(modifier: Modifier = Modifier) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(10.dp)

@@ -23,9 +23,7 @@ import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.ui.home.model.RecommendMenuData
 
 @Composable
-fun RecommendMenuList(
-    modifier: Modifier = Modifier
-) {
+fun RecommendMenuList(modifier: Modifier = Modifier) {
     val menus = RecommendMenuData.menuList
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -78,5 +76,4 @@ private fun RecommendMenuListPreview() {
     StarbucksTheme {
         RecommendMenuList()
     }
-
 }

@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -29,17 +28,17 @@ fun OnlineStoreCard(
     onlineStoreType: OnlineStoreType,
     modifier: Modifier = Modifier
 ) {
-    val backgroundColor = when(onlineStoreType) {
+    val backgroundColor = when (onlineStoreType) {
         OnlineStoreType.SSGDAY -> StarbucksTheme.colors.red02
         OnlineStoreType.HEART -> StarbucksTheme.colors.yellow03
     }
 
-    val textColor = when(onlineStoreType) {
+    val textColor = when (onlineStoreType) {
         OnlineStoreType.SSGDAY -> StarbucksTheme.colors.red01
         OnlineStoreType.HEART -> StarbucksTheme.colors.yellow01
     }
 
-    val annotatedMessage = when(onlineStoreType) {
+    val annotatedMessage = when (onlineStoreType) {
         OnlineStoreType.SSGDAY -> buildAnnotatedString {
             val blackColor = SpanStyle(color = StarbucksTheme.colors.black)
             val redColor = SpanStyle(color = StarbucksTheme.colors.red01)
@@ -65,8 +64,8 @@ fun OnlineStoreCard(
         modifier = modifier
             .background(
                 color = backgroundColor,
-                shape = RoundedCornerShape(12.dp))
-
+                shape = RoundedCornerShape(12.dp)
+            )
     ) {
         Row(
             modifier = Modifier
@@ -115,4 +114,3 @@ private fun OnlineStoreCardPreview() {
         )
     }
 }
-
