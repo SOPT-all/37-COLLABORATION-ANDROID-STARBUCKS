@@ -1,4 +1,4 @@
-package sopt.org.starbucks.ui.order
+package sopt.org.starbucks.ui.mymenu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -51,6 +51,12 @@ fun PersonalOptionContent(modifier: Modifier = Modifier) {
                 style = StarbucksTheme.typography.bodyRegular13,
                 color = StarbucksTheme.colors.green500,
                 modifier = Modifier.padding(end = 3.dp)
+            )
+
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_reset),
+                contentDescription = "ic_reset",
+                tint = StarbucksTheme.colors.green500
             )
         }
 
