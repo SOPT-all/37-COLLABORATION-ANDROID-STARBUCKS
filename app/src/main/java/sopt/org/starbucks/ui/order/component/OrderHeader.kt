@@ -41,7 +41,7 @@ fun OrderHeader(
             .fillMaxWidth()
             .bottomBorder(1.dp, StarbucksTheme.colors.gray200)
             .padding(horizontal = 16.dp)
-            .padding(bottom = 13.dp, top = 16.dp),
+            .padding(top = 16.dp, bottom = 13.dp),
         verticalArrangement = Arrangement.spacedBy(13.dp)
     ) {
         Row(
@@ -103,7 +103,7 @@ private fun TabButton(
             ).clip(roundedCornerShape)
             .background(if (selected) StarbucksTheme.colors.gray900 else StarbucksTheme.colors.white, roundedCornerShape)
             .noRippleClickable(onClick)
-            .padding(vertical = 5.dp, horizontal = 20.dp)
+            .padding(horizontal = 20.dp, vertical = 5.dp)
     ) {
         Text(
             text = text,
