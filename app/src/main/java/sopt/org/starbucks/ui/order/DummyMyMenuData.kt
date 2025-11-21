@@ -1,8 +1,9 @@
 package sopt.org.starbucks.ui.order
 
+import kotlinx.collections.immutable.persistentListOf
 import sopt.org.starbucks.data.model.MyMenu
 
-val dummyMyMenu = listOf(
+val dummyMyMenu = persistentListOf(
     MyMenu(
         myMenuId = 1,
         myMenuName = "상큼발랄 프레셔",
