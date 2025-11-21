@@ -2,8 +2,8 @@ package sopt.org.starbucks.ui.mymenu.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -12,18 +12,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 
 @Composable
-fun DrinkImageSection(modifier: Modifier = Modifier) {
+fun DrinkImageSection(
+    modifier: Modifier = Modifier,
+    imageUrl: Any?,
+    ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(330.dp)
             .background(StarbucksTheme.colors.red01)
     ) {
         // 뒤로가기
@@ -57,13 +61,14 @@ fun DrinkImageSection(modifier: Modifier = Modifier) {
         }
 
         // 음료 이미지
-        Icon(
-            painter = painterResource(id = R.drawable.ic_order),
+        AsyncImage(
+            model = imageUrl,
             contentDescription = "중앙 음료 이미자",
+            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .align(Alignment.Center)
-                .size(330.dp),
-            tint = Color.Unspecified
+                .aspectRatio(1f)
+                .padding(horizontal = 10.dp),
         )
 
         // 이미지
@@ -87,6 +92,5 @@ fun DrinkImageSection(modifier: Modifier = Modifier) {
 @Composable
 private fun DrinkImageSectionPreview() {
     StarbucksTheme {
-        DrinkImageSection()
-    }
+        DrinkImageSection(imageUrl = null)    }
 }

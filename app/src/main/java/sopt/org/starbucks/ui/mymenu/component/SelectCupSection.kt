@@ -13,8 +13,12 @@ import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 
 @Composable
-fun SelectCupSection(modifier: Modifier = Modifier) {
-    Column {
+fun SelectCupSection(
+    selectedSize: DrinkSize,
+    onSizeSelected: (DrinkSize) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
         Text(
             text = "컵 선택",
             style = StarbucksTheme.typography.bodyBold16,
@@ -26,23 +30,14 @@ fun SelectCupSection(modifier: Modifier = Modifier) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            DrinkSizeButton(
-                drinkSize = DrinkSize.TALL,
-                isSelected = true,
-                onClick = { }
-            )
-
-            DrinkSizeButton(
-                drinkSize = DrinkSize.GRANDE,
-                isSelected = false,
-                onClick = { }
-            )
-
-            DrinkSizeButton(
-                drinkSize = DrinkSize.VENTI,
-                isSelected = false,
-                onClick = { }
-            )
+           DrinkSize.entries.forEach{ drinkSize ->
+               DrinkSizeButton(
+                   drinkSize = drinkSize,
+                   isSelected = selectedSize == drinkSize,
+                   onClick = { onSizeSelected(drinkSize) },
+                   modifier = Modifier.weight(1f)
+               )
+           }
         }
     }
 }
@@ -50,7 +45,8 @@ fun SelectCupSection(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun SelectCupSectionPreview() {
-    StarbucksTheme {
-        SelectCupSection()
-    }
+    SelectCupSection(
+        selectedSize = DrinkSize.TALL,
+        onSizeSelected = { }
+    )
 }

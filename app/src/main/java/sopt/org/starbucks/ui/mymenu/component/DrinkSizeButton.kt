@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,11 +31,10 @@ enum class DrinkSize(
     val iconRes: Int,
     val iconSelectedRes: Int,
     val iconWidth: Int,
-    val iconHeight: Int
 ) {
-    TALL("Tall", "355ml", R.drawable.ic_tall, R.drawable.ic_tall_select, 35, 26),
-    GRANDE("Grande", "473ml", R.drawable.ic_grande, R.drawable.ic_grande_select, 43, 32),
-    VENTI("Venti", "591ml", R.drawable.ic_venti, R.drawable.ic_venti_select, 49, 36)
+    TALL("Tall", "355ml", R.drawable.ic_tall, R.drawable.ic_tall_select, 35),
+    GRANDE("Grande", "473ml", R.drawable.ic_grande, R.drawable.ic_grande_select, 43),
+    VENTI("Venti", "591ml", R.drawable.ic_venti, R.drawable.ic_venti_select, 49)
 }
 
 @Composable
@@ -46,7 +46,7 @@ fun DrinkSizeButton(
 ) {
     Box(
         modifier = modifier
-            .size(width = 103.dp, height = 107.dp) // w,h 고정
+            .aspectRatio(1f)
             .border(
                 width = 1.dp,
                 color = if (isSelected) StarbucksTheme.colors.green500 else StarbucksTheme.colors.gray600,
@@ -69,7 +69,6 @@ fun DrinkSizeButton(
                 contentDescription = drinkSize.displayName,
                 modifier = Modifier
                     .width(drinkSize.iconWidth.dp)
-                    .height(drinkSize.iconHeight.dp)
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -102,19 +101,22 @@ private fun DrinkSizeButtonPreview() {
             DrinkSizeButton(
                 drinkSize = DrinkSize.TALL,
                 isSelected = true,
-                onClick = { }
+                onClick = { },
+                modifier = Modifier.weight(1f)
             )
 
             DrinkSizeButton(
                 drinkSize = DrinkSize.GRANDE,
                 isSelected = false,
-                onClick = { }
+                onClick = { },
+                modifier = Modifier.weight(1f)
             )
 
             DrinkSizeButton(
                 drinkSize = DrinkSize.VENTI,
                 isSelected = false,
-                onClick = { }
+                onClick = { },
+                modifier = Modifier.weight(1f)
             )
         }
     }

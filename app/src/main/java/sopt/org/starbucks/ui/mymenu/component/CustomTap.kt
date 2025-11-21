@@ -23,43 +23,54 @@ import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.util.noRippleClickable
 
+enum class TabType(val title: String) {
+    HOT("HOT"),
+    ICED("ICED");
+
+    companion object {
+        fun from(index: Int): TabType = entries[index]
+    }
+}
+
 @Composable
-fun TabToggle() {
-    var selectedTab by remember { mutableStateOf(0) }
-    val tabs = listOf("HOT", "ICED")
+fun TabToggle(
+    selectedTab: TabType,
+    onTabSelected: (TabType) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val tabs = TabType.entries
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(50.dp)
-            .padding(8.dp)
             .background(
                 color = StarbucksTheme.colors.gray100,
                 shape = RoundedCornerShape(19.dp)
             )
     ) {
-        tabs.forEachIndexed { index, title ->
+        tabs.forEach { tab ->
+            val isSelected = selectedTab == tab
             Box(
                 modifier = Modifier
                     .weight(1f)
                     .shadow(
-                        elevation = if (selectedTab == index) 2.dp else 0.dp,
+                        elevation = if (isSelected) 2.dp else 0.dp,
                         shape = RoundedCornerShape(19.dp),
                         spotColor = Color.Black.copy(0.3f),
                         ambientColor = Color.Black.copy(0.1f)
-                    ).fillMaxHeight()
+                    )
                     .background(
-                        color = if (selectedTab == index) StarbucksTheme.colors.white else Color.Transparent,
+                        color = if(isSelected) StarbucksTheme.colors.white else Color.Transparent,
                         shape = RoundedCornerShape(19.dp)
-                    ).noRippleClickable { selectedTab = index },
+                    ).noRippleClickable { onTabSelected(tab) }
+                    .padding(vertical = 11.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = title,
-                    color = when {
-                        (selectedTab == index && index == 0) -> StarbucksTheme.colors.red0160
-                        (selectedTab == index && index == 1) -> StarbucksTheme.colors.blue02
-                        else -> StarbucksTheme.colors.gray500
+                    text = tab.title,
+                    color = when (tab) {
+                        TabType.HOT -> if (isSelected) StarbucksTheme.colors.red0160 else StarbucksTheme.colors.gray500
+                        TabType.ICED -> if (isSelected) StarbucksTheme.colors.blue02 else StarbucksTheme.colors.gray500
                     },
                     style = StarbucksTheme.typography.headSemiBold14
                 )
@@ -71,5 +82,11 @@ fun TabToggle() {
 @Preview(showBackground = true)
 @Composable
 fun TabTogglePreview() {
-    TabToggle()
+    var selectedTab by  remember { mutableStateOf(TabType.HOT) }
+    TabToggle(
+        selectedTab = selectedTab,
+        onTabSelected = { selectedTab = it },
+        modifier = Modifier.padding(8.dp)
+
+    )
 }

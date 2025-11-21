@@ -3,10 +3,11 @@ package sopt.org.starbucks.ui.edit.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,31 +31,31 @@ fun EcoFriendlySection(
     isPersonalCupChecked: Boolean,
     modifier: Modifier = Modifier
 ) {
-    Box(
+    Row(
         modifier = modifier
-            .width(328.dp)
-            .height(105.dp)
+            .fillMaxWidth()
             .background(
-                color = Color(0x1A00653B),
+                color = StarbucksTheme.colors.green700A10,
                 shape = RoundedCornerShape(size = 10.dp)
-            ).padding(start = 19.dp, top = 10.dp, end = 10.dp, bottom = 10.dp)
+            )
+            .padding(vertical = 22.dp, horizontal = 19.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Column(
-            modifier = Modifier.align(Alignment.CenterStart),
+            modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(17.dp)
+            verticalArrangement = Arrangement.spacedBy(27.dp)
         ) {
             Text(
                 text = "환경을 위해 친환경 캠페인에 동참해 보세요.",
                 style = StarbucksTheme.typography.bodySemiBold13,
-                color = StarbucksTheme.colors.black,
-                modifier = Modifier.padding(top = 13.dp, bottom = 10.dp)
+                color = StarbucksTheme.colors.black
             )
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .padding(bottom = 12.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Icon(
                     painter = painterResource(
@@ -64,8 +65,6 @@ fun EcoFriendlySection(
                     tint = Color.Unspecified,
                     modifier = Modifier.size(20.dp)
                 )
-
-                Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
                     text = "개인컵 사용하기",
@@ -80,9 +79,8 @@ fun EcoFriendlySection(
             painter = painterResource(id = R.drawable.ic_tree),
             contentDescription = "친환경",
             modifier = Modifier
-                .width(42.dp)
-                .height(46.dp)
-                .align(Alignment.CenterEnd)
+                .width(52.dp)
+                .aspectRatio(1f)
         )
     }
 }
@@ -91,12 +89,13 @@ fun EcoFriendlySection(
 @Composable
 private fun EcoFriendlySectionPreview() {
     StarbucksTheme {
-        Column {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             EcoFriendlySection(
                 isPersonalCupChecked = false
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             EcoFriendlySection(
                 isPersonalCupChecked = true

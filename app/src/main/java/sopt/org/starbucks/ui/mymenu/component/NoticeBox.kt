@@ -1,6 +1,7 @@
 package sopt.org.starbucks.ui.mymenu.component
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,19 +26,16 @@ fun NoticeBox(
                 width = 1.dp,
                 color = StarbucksTheme.colors.gray200,
                 shape = RoundedCornerShape(6.dp)
-            ).padding(start = 9.dp, top = 13.dp, end = 9.dp, bottom = 13.dp)
+            ).padding(start = 9.dp, top = 13.dp, end = 9.dp, bottom = 13.dp),
+        verticalArrangement = Arrangement.spacedBy(3.dp)
+
     ) {
-        notices.forEachIndexed { index, notice ->
+        notices.forEach { notice ->
             Text(
                 text = notice,
                 style = StarbucksTheme.typography.captionRegular11,
                 color = StarbucksTheme.colors.gray600
             )
-            if (index < notices.size - 1) { // 마지막 항목 아니면
-                Spacer(
-                    modifier = Modifier.padding(top = 3.dp)
-                )
-            }
         }
     }
 }

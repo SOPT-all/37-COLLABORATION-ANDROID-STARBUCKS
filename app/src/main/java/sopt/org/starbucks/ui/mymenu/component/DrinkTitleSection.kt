@@ -48,7 +48,7 @@ fun DrinkTitleSection(
             }
         }
 
-        Spacer(modifier = Modifier.height(4.5.dp))
+        Spacer(modifier = Modifier.height(5.dp))
 
         // 영어 제목
         Text(
@@ -57,7 +57,7 @@ fun DrinkTitleSection(
             color = StarbucksTheme.colors.gray600
         )
 
-        Spacer(modifier = Modifier.height(3.5.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         // 부가 설명
         Text(

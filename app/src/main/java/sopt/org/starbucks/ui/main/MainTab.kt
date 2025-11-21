@@ -31,7 +31,7 @@ enum class MainTab(
         route = Pay
     ),
     ORDER(
-        iconResId = R.drawable.ic_order,
+        iconResId = R.drawable.ic_order_drink,
         label = R.string.order,
         route = Order
     ),
