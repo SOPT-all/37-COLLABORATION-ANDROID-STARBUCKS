@@ -81,7 +81,8 @@ private fun RowScope.MainBottomBarItem(
         )
         Text(
             text = stringResource(id = tab.label),
-            color = if (selected) tab.selectedColor else tab.defaultColor
+            color = if (selected) tab.selectedColor else tab.defaultColor,
+            style = StarbucksTheme.typography.captionRegular10
         )
     }
 }
