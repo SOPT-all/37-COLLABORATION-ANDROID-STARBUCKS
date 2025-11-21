@@ -19,6 +19,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.state.UiState
+import sopt.org.starbucks.core.util.onSuccess
 import sopt.org.starbucks.ui.order.component.MyMenuItem
 import sopt.org.starbucks.ui.order.component.OrderHeader
 import sopt.org.starbucks.ui.order.component.StoreSelector
@@ -64,20 +65,17 @@ fun OrderScreen(
                 )
             }
 
-            when (val state = uiState.myMenuListLoadState) {
-                is UiState.Success -> {
-                    items(state.data) { myMenu ->
-                        MyMenuItem(
-                            imgUrl = myMenu.imgUrl,
-                            myMenuName = myMenu.myMenuName,
-                            menuName = myMenu.menuName,
-                            option = myMenu.myMenuOption,
-                            price = myMenu.price,
-                            onEditClick = { onEditClick(myMenu.myMenuId) }
-                        )
-                    }
+            uiState.myMenuListLoadState.onSuccess { list ->
+                items(list) { myMenu ->
+                    MyMenuItem(
+                        imgUrl = myMenu.imgUrl,
+                        myMenuName = myMenu.myMenuName,
+                        menuName = myMenu.menuName,
+                        option = myMenu.myMenuOption,
+                        price = myMenu.price,
+                        onEditClick = { onEditClick(myMenu.myMenuId) }
+                    )
                 }
-                else -> {}
             }
         }
         StoreSelector()
