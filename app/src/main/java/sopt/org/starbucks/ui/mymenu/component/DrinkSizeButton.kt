@@ -30,7 +30,7 @@ enum class DrinkSize(
     val volume: String,
     val iconRes: Int,
     val iconSelectedRes: Int,
-    val iconWidth: Int,
+    val iconWidth: Int
 ) {
     TALL("Tall", "355ml", R.drawable.ic_tall, R.drawable.ic_tall_select, 35),
     GRANDE("Grande", "473ml", R.drawable.ic_grande, R.drawable.ic_grande_select, 43),

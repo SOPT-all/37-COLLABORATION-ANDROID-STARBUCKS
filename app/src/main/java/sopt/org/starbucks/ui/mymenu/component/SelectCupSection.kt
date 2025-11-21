@@ -30,14 +30,14 @@ fun SelectCupSection(
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-           DrinkSize.entries.forEach{ drinkSize ->
-               DrinkSizeButton(
-                   drinkSize = drinkSize,
-                   isSelected = selectedSize == drinkSize,
-                   onClick = { onSizeSelected(drinkSize) },
-                   modifier = Modifier.weight(1f)
-               )
-           }
+            DrinkSize.entries.forEach { drinkSize ->
+                DrinkSizeButton(
+                    drinkSize = drinkSize,
+                    isSelected = selectedSize == drinkSize,
+                    onClick = { onSizeSelected(drinkSize) },
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
     }
 }

@@ -23,8 +23,8 @@ import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 @Composable
 fun DrinkImageSection(
     modifier: Modifier = Modifier,
-    imageUrl: Any?,
-    ) {
+    imageUrl: String?
+) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -68,7 +68,7 @@ fun DrinkImageSection(
             modifier = Modifier
                 .align(Alignment.Center)
                 .aspectRatio(1f)
-                .padding(horizontal = 10.dp),
+                .padding(horizontal = 10.dp)
         )
 
         // 이미지
@@ -92,5 +92,6 @@ fun DrinkImageSection(
 @Composable
 private fun DrinkImageSectionPreview() {
     StarbucksTheme {
-        DrinkImageSection(imageUrl = null)    }
+        DrinkImageSection(imageUrl = null)
+    }
 }

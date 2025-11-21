@@ -3,9 +3,7 @@ package sopt.org.starbucks.ui.mymenu.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -23,7 +21,9 @@ import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.util.noRippleClickable
 
-enum class TabType(val title: String) {
+enum class TabType(
+    val title: String
+) {
     HOT("HOT"),
     ICED("ICED");
 
@@ -58,9 +58,8 @@ fun TabToggle(
                         shape = RoundedCornerShape(19.dp),
                         spotColor = Color.Black.copy(0.3f),
                         ambientColor = Color.Black.copy(0.1f)
-                    )
-                    .background(
-                        color = if(isSelected) StarbucksTheme.colors.white else Color.Transparent,
+                    ).background(
+                        color = if (isSelected) StarbucksTheme.colors.white else Color.Transparent,
                         shape = RoundedCornerShape(19.dp)
                     ).noRippleClickable { onTabSelected(tab) }
                     .padding(vertical = 11.dp),
@@ -82,11 +81,10 @@ fun TabToggle(
 @Preview(showBackground = true)
 @Composable
 fun TabTogglePreview() {
-    var selectedTab by  remember { mutableStateOf(TabType.HOT) }
+    var selectedTab by remember { mutableStateOf(TabType.HOT) }
     TabToggle(
         selectedTab = selectedTab,
         onTabSelected = { selectedTab = it },
         modifier = Modifier.padding(8.dp)
-
     )
 }

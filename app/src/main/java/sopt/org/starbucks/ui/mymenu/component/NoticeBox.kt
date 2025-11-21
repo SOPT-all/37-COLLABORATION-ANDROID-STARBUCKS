@@ -3,7 +3,6 @@ package sopt.org.starbucks.ui.mymenu.component
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,7 +27,6 @@ fun NoticeBox(
                 shape = RoundedCornerShape(6.dp)
             ).padding(start = 9.dp, top = 13.dp, end = 9.dp, bottom = 13.dp),
         verticalArrangement = Arrangement.spacedBy(3.dp)
-
     ) {
         notices.forEach { notice ->
             Text(
