@@ -60,8 +60,8 @@ class MainNavigator(
             currentDestination?.route == it::class.qualifiedName
         }
 
-    fun navigateToMyMenu() {
-        navController.navigate(MyMenu)
+    fun navigateToMyMenu(menuId: Long) {
+        navController.navigate(MyMenu(menuId = menuId))
     }
 }
 

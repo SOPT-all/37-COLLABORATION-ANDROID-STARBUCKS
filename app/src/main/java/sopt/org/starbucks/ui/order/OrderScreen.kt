@@ -26,7 +26,7 @@ import sopt.org.starbucks.ui.order.component.StoreSelector
 @Composable
 fun OrderRoute(
     paddingValues: PaddingValues,
-    navigateToMyMenu: () -> Unit,
+    navigateToMyMenu: (Long) -> Unit,
     viewModel: OrderViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
@@ -47,7 +47,7 @@ fun OrderRoute(
 fun OrderScreen(
     uiState: OrderUiState,
     onTabSelected: (OrderTab) -> Unit,
-    onEditClick: () -> Unit,
+    onEditClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -73,7 +73,7 @@ fun OrderScreen(
                             menuName = myMenu.menuName,
                             option = myMenu.myMenuOption,
                             price = myMenu.price,
-                            onEditClick = onEditClick
+                            onEditClick = { onEditClick(myMenu.myMenuId) }
                         )
                     }
                 }
