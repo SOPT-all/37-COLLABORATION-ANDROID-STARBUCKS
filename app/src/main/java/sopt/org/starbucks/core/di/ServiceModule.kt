@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import sopt.org.starbucks.data.service.DummyService
+import sopt.org.starbucks.data.service.MyMenuService
 import javax.inject.Singleton
 
 @Module
@@ -13,5 +13,5 @@ import javax.inject.Singleton
 object ServiceModule {
     @Provides
     @Singleton
-    fun provideDummyService(retrofit: Retrofit): DummyService = retrofit.create(DummyService::class.java)
+    fun provideMyMenuService(retrofit: Retrofit): MyMenuService = retrofit.create(MyMenuService::class.java)
 }
