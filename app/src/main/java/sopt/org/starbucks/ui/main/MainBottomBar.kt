@@ -1,6 +1,10 @@
 package sopt.org.starbucks.ui.main
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -34,7 +38,13 @@ fun MainBottomBar(
     modifier: Modifier = Modifier
 ) {
     AnimatedVisibility(
-        visible = visible
+        visible = visible,
+        enter = slideInVertically(
+            initialOffsetY = { fullHeight -> fullHeight }
+        ) + fadeIn(),
+        exit = slideOutVertically(
+            targetOffsetY = { fullHeight -> fullHeight }
+        ) + fadeOut()
     ) {
         Row(
             modifier = modifier.fillMaxWidth()
