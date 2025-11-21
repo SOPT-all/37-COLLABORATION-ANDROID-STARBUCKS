@@ -56,7 +56,11 @@ fun TabToggle() {
             ) {
                 Text(
                     text = title,
-                    color = if (selectedTab == index) StarbucksTheme.colors.blue02 else StarbucksTheme.colors.gray500,
+                    color = when {
+                        (selectedTab == index && index == 0) -> StarbucksTheme.colors.red0160
+                        (selectedTab == index && index == 1) -> StarbucksTheme.colors.blue02
+                        else -> StarbucksTheme.colors.gray500
+                    },
                     style = StarbucksTheme.typography.headSemiBold14
                 )
             }

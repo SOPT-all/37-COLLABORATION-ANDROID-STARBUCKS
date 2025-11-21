@@ -40,6 +40,7 @@ val Yellow01 = Color(0xFFC49500)
 val Yellow02 = Color(0xFFF7F5Ed)
 val Yellow03 = Color(0xFFFAF5E7)
 val Red01 = Color(0xFFD90000)
+val Red01_60 = Color(0x99D90000)
 val Red02 = Color(0xFFFDE5E3)
 val Blue01 = Color(0xFF0076Ff)
 val Blue02 = Color(0xFF008CC8)
@@ -79,6 +80,7 @@ data class StarbucksColors(
     val yellow02: Color = Yellow02,
     val yellow03: Color = Yellow03,
     val red01: Color = Red01,
+    val red0160: Color = Red01_60,
     val red02: Color = Red02,
     val blue01: Color = Blue01,
     val blue02: Color = Blue02,
