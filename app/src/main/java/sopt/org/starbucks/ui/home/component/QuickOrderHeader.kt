@@ -53,7 +53,7 @@ fun QuickOrderHeader(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_pencil),
+                    painter = painterResource(R.drawable.ic_pencil_11),
                     contentDescription = null,
                     tint = StarbucksTheme.colors.black,
                     modifier = Modifier.size(11.dp)
