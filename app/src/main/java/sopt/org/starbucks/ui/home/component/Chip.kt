@@ -41,6 +41,7 @@ fun Chip(
     trailingText: String? = null,
     textColor: Color? = null,
     trailingTextColor: Color? = null,
+    showNewTag: Boolean = false,
     onClick: () -> Unit = {}
 ) {
     val shape = RoundedCornerShape(22.dp)
@@ -62,76 +63,56 @@ fun Chip(
     val finalTextColor = textColor ?: contentColor
     val finalTrailingTextColor = trailingTextColor ?: contentColor
 
-    Row(
+    Box(
         modifier = modifier
-            .background(backgroundColor, shape)
-            .then(borderStroke?.let { Modifier.border(it, shape) } ?: Modifier)
-            .padding(horizontal = 15.dp, vertical = 10.dp)
-            .noRippleClickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically
+            .noRippleClickable { onClick() }
     ) {
-        // 아이콘 + 텍스트 간격 10dp
         Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = modifier
+                .background(backgroundColor, shape)
+                .then(borderStroke?.let { Modifier.border(it, shape) } ?: Modifier)
+                .padding(horizontal = 15.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            icon?.let {
-                Icon(
-                    painter = painterResource(id = it),
-                    contentDescription = null,
-                    tint = Color.Unspecified,
-                    modifier = Modifier.size(19.dp)
+            // 아이콘 + 텍스트 간격 10dp
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                icon?.let {
+                    Icon(
+                        painter = painterResource(id = it),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier.size(19.dp)
+                    )
+                }
+
+                Text(
+                    text = text,
+                    style = StarbucksTheme.typography.captionRegular14,
+                    color = finalTextColor
                 )
             }
-
-            Text(
-                text = text,
-                style = StarbucksTheme.typography.captionRegular14,
-                color = finalTextColor
+            // trailingText는 오른쪽, 앞 간격 15dp
+            trailingText?.let {
+                Text(
+                    text = it,
+                    style = StarbucksTheme.typography.captionRegular14,
+                    color = finalTrailingTextColor,
+                    modifier = Modifier.padding(start = 15.dp)
+                )
+            }
+        }
+        if (showNewTag) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_tag_new),
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .offset(x = 7.dp, y = (-8).dp)
             )
         }
-
-        // trailingText는 오른쪽, 앞 간격 15dp
-        trailingText?.let {
-            Text(
-                text = it,
-                style = StarbucksTheme.typography.captionRegular14,
-                color = finalTrailingTextColor,
-                modifier = Modifier.padding(start = 15.dp)
-            )
-        }
-    }
-}
-
-@Composable
-fun ChipWithNewTag(
-    modifier: Modifier = Modifier,
-    style: ChipStyle,
-    @DrawableRes icon: Int? = null,
-    text: String,
-    trailingText: String? = null,
-    textColor: Color? = null,
-    trailingTextColor: Color? = null,
-    onClick: () -> Unit = {}
-) {
-    Box(modifier = modifier) {
-        Chip(
-            style = style,
-            icon = icon,
-            text = text,
-            trailingText = trailingText,
-            textColor = textColor,
-            trailingTextColor = trailingTextColor,
-            onClick = onClick
-        )
-
-        Image(
-            painter = painterResource(id = R.drawable.ic_tag_new),
-            contentDescription = null,
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .offset(x = 7.dp, y = (-8).dp)
-        )
     }
 }
 
@@ -153,13 +134,12 @@ fun ChipPreview() {
                 contentDescription = null
             )
 
-            ChipWithNewTag(
+            Chip(
                 style = ChipStyle.GreenOutline,
                 icon = R.drawable.ic_green_star,
                 text = "Green",
                 trailingText = "2",
-                textColor = StarbucksTheme.colors.gray600,
-                trailingTextColor = StarbucksTheme.colors.green500
+                showNewTag = true
             )
 
             Chip(

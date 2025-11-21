@@ -67,7 +67,8 @@ fun QuickOrderItem(
                         StarbucksTheme.colors.gray400
                     },
                     modifier = Modifier
-                        .padding(start = 2.dp, end = 1.dp, top = 2.dp, bottom = 2.dp)
+                        .padding(start = 2.dp, end = 1.dp)
+                        .padding(vertical = 2.dp)
                         .noRippleClickable { isFavorite = !isFavorite }
                 )
             }
@@ -165,7 +166,7 @@ fun QuickOrderItem(
                         .clip(RoundedCornerShape(44.dp))
                         .background(Color.Black)
                         .noRippleClickable {}
-                        .padding(start = 9.dp, end = 9.dp, top = 5.dp, bottom = 5.dp)
+                        .padding(horizontal = 9.dp, vertical = 5.dp)
                 ) {
                     Text(
                         text = "바로 주문하기",
