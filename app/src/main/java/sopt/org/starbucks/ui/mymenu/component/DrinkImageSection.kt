@@ -68,7 +68,6 @@ fun DrinkImageSection(
             modifier = Modifier
                 .align(Alignment.Center)
                 .aspectRatio(1f)
-                .padding(horizontal = 10.dp)
         )
 
         // 이미지
