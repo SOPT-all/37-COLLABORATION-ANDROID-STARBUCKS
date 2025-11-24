@@ -7,17 +7,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -37,58 +41,70 @@ fun QuickOrderRegisterItem(
 
     Box(
         modifier = modifier
-            .background(StarbucksTheme.colors.transparent)
+            .width(255.dp)
+            .height(144.dp)
+            .padding(1.dp)
             .drawBehind {
                 val stroke = Stroke(
                     width = 1.dp.toPx(),
                     pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
                 )
-
                 drawRoundRect(
                     color = borderColor,
-                    size = this.size,
-                    cornerRadius = androidx.compose.ui.geometry
-                        .CornerRadius(12.dp.toPx(), 12.dp.toPx()),
+                    size = size,
+                    cornerRadius = CornerRadius(12.dp.toPx()),
                     style = stroke
                 )
-            }.size(width = 255.dp, height = 144.dp)
+            }
+            .clip(RoundedCornerShape(12.dp))  // ← clip을 뒤에 적용!
+            .background(StarbucksTheme.colors.white)
     ) {
+
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 12.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // 음료 컵 이미지 + 안내 텍스트
+
             Row(
                 modifier = Modifier
-                    .padding(top = 18.dp, start = 27.dp),
-                verticalAlignment = Alignment.Top,
-                horizontalArrangement = Arrangement.spacedBy(20.05.dp)
+                    .fillMaxWidth()
+                    .padding(start = 8.dp),
+                verticalAlignment = Alignment.Top
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.img_quick_order),
                     contentDescription = null,
-                    modifier = Modifier
-                        .height(50.dp)
-                        .width(25.dp)
-                        .padding(top = 3.52.dp)
+                    modifier = Modifier.size(50.dp)
                 )
 
-                Column {
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 16.dp)
+                ) {
                     Text(
                         text = "나만의 메뉴를 등록하고\nHome에서 빠르게 주문해\n보세요 ☺️",
                         style = StarbucksTheme.typography.headSemiBold12,
-                        color = StarbucksTheme.colors.black
+                        color = StarbucksTheme.colors.black,
                     )
-                    Spacer(modifier = Modifier.height(2.dp))
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
                     Text(
-                        text = "음료,푸드만 주문 가능합니다",
+                        text = "음료, 푸드만 주문 가능합니다",
                         style = StarbucksTheme.typography.captionRegular12,
-                        color = StarbucksTheme.colors.gray600
+                        color = StarbucksTheme.colors.gray600,
+                        maxLines = 1
                     )
                 }
             }
 
-            // 구분선
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             Box(
                 modifier = Modifier
@@ -99,21 +115,25 @@ fun QuickOrderRegisterItem(
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // 하단 원형 버튼
-            Icon(
-                painter = painterResource(id = R.drawable.btn_add_quick_order),
-                contentDescription = null,
-                tint = Color.Unspecified,
+            Row(
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .size(26.dp)
-                    .noRippleClickable { onClick() }
-            )
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.btn_add_quick_order),
+                    contentDescription = null,
+                    tint = Color.Unspecified,
+                    modifier = Modifier
+                        .size(26.dp)
+                        .noRippleClickable { onClick() }
+                )
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 private fun QuickOrderRegisterItemPreview() {
     StarbucksTheme {

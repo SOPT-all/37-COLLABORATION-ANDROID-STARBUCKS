@@ -28,12 +28,13 @@ enum class QuickOrderTab { MY_MENU, RECENT_MENU }
 @Composable
 fun QuickOrderHeader(
     selectedTab: QuickOrderTab,
-    onTabSelected: (QuickOrderTab) -> Unit
+    onTabSelected: (QuickOrderTab) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 10.dp),
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -44,7 +45,8 @@ fun QuickOrderHeader(
         )
 
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             Row(
                 modifier = Modifier.noRippleClickable {
@@ -76,8 +78,6 @@ fun QuickOrderHeader(
                 )
             }
 
-            Spacer(modifier = Modifier.width(15.dp))
-
             Text(
                 text = "최근메뉴",
                 style = if (selectedTab == QuickOrderTab.RECENT_MENU) {
@@ -106,7 +106,8 @@ fun QuickOrderHeaderPreview() {
 
         QuickOrderHeader(
             selectedTab = selectedTab,
-            onTabSelected = { selectedTab = it }
+            onTabSelected = { selectedTab = it },
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
         )
     }
 }

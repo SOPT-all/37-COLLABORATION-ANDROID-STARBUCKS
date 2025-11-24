@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -68,33 +67,29 @@ fun Chip(
             .noRippleClickable { onClick() }
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .background(backgroundColor, shape)
                 .then(borderStroke?.let { Modifier.border(it, shape) } ?: Modifier)
-                .padding(horizontal = 15.dp, vertical = 10.dp),
+                .padding(horizontal = 20.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // 아이콘 + 텍스트 간격 10dp
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 icon?.let {
-                    Icon(
+                    Image(
                         painter = painterResource(id = it),
                         contentDescription = null,
-                        tint = Color.Unspecified,
                         modifier = Modifier.size(19.dp)
                     )
                 }
-
                 Text(
                     text = text,
                     style = StarbucksTheme.typography.captionRegular14,
                     color = finalTextColor
                 )
             }
-            // trailingText는 오른쪽, 앞 간격 15dp
             trailingText?.let {
                 Text(
                     text = it,
@@ -139,7 +134,9 @@ fun ChipPreview() {
                 icon = R.drawable.ic_green_star,
                 text = "Green",
                 trailingText = "2",
-                showNewTag = true
+                showNewTag = true,
+                textColor = StarbucksTheme.colors.gray600,
+                trailingTextColor = StarbucksTheme.colors.green500
             )
 
             Chip(
