@@ -23,3 +23,6 @@ data object Other : MainTabRoute
 
 @Serializable
 data object MyMenu : Route
+
+@Serializable
+data object EditMenu : Route
