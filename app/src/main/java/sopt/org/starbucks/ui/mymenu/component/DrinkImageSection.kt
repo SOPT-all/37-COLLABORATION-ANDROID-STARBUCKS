@@ -23,7 +23,8 @@ import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 @Composable
 fun DrinkImageSection(
     modifier: Modifier = Modifier,
-    imageUrl: String?
+    imageUrl: String?,
+    onBackClick: () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -32,7 +33,7 @@ fun DrinkImageSection(
     ) {
         // 뒤로가기
         IconButton(
-            onClick = { },
+            onClick = onBackClick,
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(start = 16.dp, top = 62.dp)
@@ -91,6 +92,9 @@ fun DrinkImageSection(
 @Composable
 private fun DrinkImageSectionPreview() {
     StarbucksTheme {
-        DrinkImageSection(imageUrl = "https://houme-bucket.s3.ap-northeast-2.amazonaws.com/menu.jpg")
+        DrinkImageSection(
+            imageUrl = "https://houme-bucket.s3.ap-northeast-2.amazonaws.com/menu.jpg",
+            onBackClick = {}
+        )
     }
 }
