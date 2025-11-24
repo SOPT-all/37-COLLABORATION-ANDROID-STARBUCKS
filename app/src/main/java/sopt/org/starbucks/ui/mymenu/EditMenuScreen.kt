@@ -11,6 +11,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -140,6 +144,10 @@ fun EditMenuScreen(
 @Preview(showBackground = true)
 @Composable
 private fun EditMenuScreenPreview() {
+    var selectedTab by remember { mutableStateOf(TabType.ICED) }
+    var selectedSize by remember { mutableStateOf(DrinkSize.TALL) }
+    var isPersonalCupChecked by remember { mutableStateOf(false) }
+
     StarbucksTheme {
         EditMenuScreen(
             menu = MenuDetail(
@@ -155,12 +163,12 @@ private fun EditMenuScreenPreview() {
                     "* 대체당(스테비아)을 일부 사용하여 당과 칼로리를 낮췄습니다."
                 )
             ),
-            selectedTab = TabType.ICED,
-            selectedSize = DrinkSize.TALL,
-            isPersonalCupChecked = false,
-            onTabSelected = {},
-            onSizeSelected = {},
-            onPersonalCupToggle = {},
+            selectedTab = selectedTab,
+            selectedSize = selectedSize,
+            isPersonalCupChecked = isPersonalCupChecked,
+            onTabSelected = { selectedTab = it },
+            onSizeSelected = { selectedSize = it },
+            onPersonalCupToggle = { isPersonalCupChecked = !isPersonalCupChecked },
             onBackClick = {}
         )
     }
