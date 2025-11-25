@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -38,6 +41,41 @@ data class QuickOrderUiModel(
     val option: String,
     val imageRes: Int
 )
+
+// 샘플 데이터 - > 삭제 예정
+val sampleQuickOrderList = listOf(
+    QuickOrderUiModel(
+        id = 1,
+        title = "상큼발랄 프레셔",
+        option = "ICED | Tall | 바닐라 시럽2 | 로즈마리 없이 | 얼음 적게 | 일반 휘핑 많이 | 핑크 리치 보바 없이",
+        imageRes = R.drawable.img_sample_drink
+    ),
+    QuickOrderUiModel(
+        id = 2,
+        title = "나의 아메리카노",
+        option = "ICED | Tall | 에스프레소 5샷",
+        imageRes = R.drawable.img_sample_drink
+    )
+)
+
+@Composable
+fun QuickOrderList(modifier: Modifier = Modifier) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = modifier,
+    ) {
+        items(sampleQuickOrderList) { item ->
+            QuickOrderItem(
+                item = item
+            )
+        }
+
+        item {
+            QuickOrderRegisterItem()
+        }
+    }
+}
 
 @Composable
 fun QuickOrderItem(
@@ -163,7 +201,7 @@ fun QuickOrderItem(
     }
 }
 
-@Preview()
+@Preview
 @Composable
 private fun QuickOrderItemPreview() {
     StarbucksTheme {

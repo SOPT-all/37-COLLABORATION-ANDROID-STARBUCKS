@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,8 +28,51 @@ import sopt.org.starbucks.core.util.noRippleClickable
 
 sealed interface ChipStyle {
     data object White : ChipStyle
-
     data object GreenOutline : ChipStyle
+}
+
+@Composable
+fun ChipSection(modifier: Modifier = Modifier) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier
+    ) {
+        item {
+            Chip(
+                style = ChipStyle.GreenOutline,
+                icon = R.drawable.ic_green_star,
+                text = "Green",
+                trailingText = "2",
+                textColor = StarbucksTheme.colors.gray600,
+                trailingTextColor = StarbucksTheme.colors.green500,
+                showNewTag = true
+            )
+        }
+
+        item {
+            Chip(
+                style = ChipStyle.White,
+                icon = R.drawable.ic_coupon,
+                text = "Coupon"
+            )
+        }
+
+        item {
+            Chip(
+                style = ChipStyle.White,
+                icon = R.drawable.ic_pay2,
+                text = "Pay"
+            )
+        }
+
+        item {
+            Chip(
+                style = ChipStyle.GreenOutline,
+                icon = R.drawable.ic_buddy_pass,
+                text = "Buddy Pass"
+            )
+        }
+    }
 }
 
 @Composable
