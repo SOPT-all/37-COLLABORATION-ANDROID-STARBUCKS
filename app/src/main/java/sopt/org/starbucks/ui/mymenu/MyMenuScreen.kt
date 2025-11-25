@@ -30,15 +30,28 @@ import sopt.org.starbucks.ui.mymenu.component.SelectCupSection
 import sopt.org.starbucks.ui.mymenu.component.TabToggle
 import sopt.org.starbucks.ui.mymenu.component.TabType
 
-// fun MyMenuRoute(
-//    paddingValues: PaddingValues,
-//    menuId: Long
-// ) {
-//    MyMenuScreen(
-//        menuId = menuId,
-//        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
-//    )
-// } // TODO 추가 예정
+@Composable
+fun MyMenuRoute(
+    paddingValues: PaddingValues,
+    menuId: Long,
+    onBackClick: () -> Unit,
+    viewModel: MyMenuViewModel = hiltViewModel()
+) {
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(menuId) {
+        viewModel.loadMenu(menuId)
+    }
+
+    MyMenuScreen(
+        uiState = uiState.value,
+        onTabSelected = viewModel::selectTab,
+        onSizeSelected = viewModel::selectSize,
+        onPersonalCupToggle = viewModel::togglePersonalCup,
+        onBackClick = onBackClick,
+        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
+    )
+}
 
 @Composable
 fun MyMenuScreen(
