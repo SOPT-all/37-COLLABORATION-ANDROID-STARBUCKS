@@ -14,7 +14,6 @@ import sopt.org.starbucks.core.navigation.Other
 import sopt.org.starbucks.core.navigation.Pay
 import sopt.org.starbucks.core.navigation.Shop
 import sopt.org.starbucks.ui.home.HomeRoute
-import sopt.org.starbucks.ui.mymenu.MyMenuRoute
 import sopt.org.starbucks.ui.order.OrderRoute
 
 @Composable
@@ -44,10 +43,10 @@ fun MainNavHost(
         composable<Other> { }
         composable<MyMenu> { backStackEntry ->
             val args = backStackEntry.toRoute<MyMenu>()
-            MyMenuRoute(
-                paddingValues = paddingValues,
-                menuId = args.menuId
-            )
+//            MyMenuRoute(
+//                paddingValues = paddingValues,
+//                menuId = args.menuId
+//            )
         }
     }
 }
