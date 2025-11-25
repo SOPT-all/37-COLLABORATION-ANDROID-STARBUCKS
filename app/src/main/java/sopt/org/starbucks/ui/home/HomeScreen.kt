@@ -85,7 +85,6 @@ fun HomeScreen(
                     modifier = Modifier
                         .align(Alignment.BottomStart)
                         .offset(y = (-37).dp)
-                        .padding(start = 22.dp)
                 )
             }
         }

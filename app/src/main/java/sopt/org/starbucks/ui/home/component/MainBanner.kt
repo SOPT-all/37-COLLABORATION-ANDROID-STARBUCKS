@@ -3,6 +3,7 @@ package sopt.org.starbucks.ui.home.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,11 +26,14 @@ fun MainBanner(
     line1: String,
     line2: String
 ) {
-    Box(
+    BoxWithConstraints (
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(360f / 240f)
     ) {
+        val bannerHeight = maxHeight
+        val dynamicTopPadding = bannerHeight * 0.32f
+
         Image(
             painter = painterResource(R.drawable.img_banner),
             contentDescription = null,
@@ -39,7 +43,7 @@ fun MainBanner(
         Column(
             modifier = Modifier
                 .matchParentSize()
-                .padding(start = 22.dp, top = 69.dp),
+                .padding(start = 22.dp, top = dynamicTopPadding),
             verticalArrangement = Arrangement.spacedBy(7.dp, Alignment.Top)
         ) {
             Text(
