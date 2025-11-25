@@ -62,13 +62,14 @@ fun QuickOrderHeader(
                 },
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_pencil_11),
-                    contentDescription = null,
-                    tint = StarbucksTheme.colors.black,
-                    modifier = Modifier.size(11.dp)
-                )
-
+                if (selectedTab == QuickOrderTab.MY_MENU) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_pencil_11),
+                        contentDescription = null,
+                        tint = StarbucksTheme.colors.black,
+                        modifier = Modifier.size(11.dp)
+                    )
+                }
                 Spacer(modifier = Modifier.width(5.dp))
 
                 Text(
