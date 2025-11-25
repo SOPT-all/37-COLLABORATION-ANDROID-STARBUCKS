@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.data.model.MenuDetailModel
 import sopt.org.starbucks.ui.mymenu.component.DrinkImageSection
 import sopt.org.starbucks.ui.mymenu.component.DrinkSize
 import sopt.org.starbucks.ui.mymenu.component.DrinkTitleSection
@@ -31,20 +32,9 @@ import sopt.org.starbucks.ui.mymenu.component.SelectCupSection
 import sopt.org.starbucks.ui.mymenu.component.TabToggle
 import sopt.org.starbucks.ui.mymenu.component.TabType
 
-data class MenuDetail(
-    val id: String = "",
-    val koreanName: String = "",
-    val englishName: String = "",
-    val description: String = "",
-    val imageUrl: String? = null,
-    val price: Int = 0,
-    val isNew: Boolean = false,
-    val notices: List<String> = emptyList()
-)
-
 @Composable
 fun EditMenuScreen(
-    menu: MenuDetail,
+    menu: MenuDetailModel,
     selectedTab: TabType,
     selectedSize: DrinkSize,
     isPersonalCupChecked: Boolean,
@@ -54,16 +44,15 @@ fun EditMenuScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier
+    Column(
+        modifier = Modifier
             .fillMaxSize()
             .background(StarbucksTheme.colors.white)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .weight(1f)
                 .verticalScroll(rememberScrollState())
-                .padding(bottom = 120.dp)
         ) {
             DrinkImageSection(
                 modifier = Modifier,
@@ -135,8 +124,7 @@ fun EditMenuScreen(
         MyMenuRegisterBar(
             optionInfo = "${selectedTab.title} | ${selectedSize.displayName}",
             onAddNewClick = { },
-            onSaveClick = { },
-            modifier = Modifier.align(Alignment.BottomCenter)
+            onSaveClick = { }
         )
     }
 }
@@ -150,7 +138,7 @@ private fun EditMenuScreenPreview() {
 
     StarbucksTheme {
         EditMenuScreen(
-            menu = MenuDetail(
+            menu = MenuDetailModel(
                 id = "1",
                 koreanName = "아이스 핑크 팝 캐모마일 릴렉서",
                 englishName = "Iced Pink Pop Chamomile Relaxer",

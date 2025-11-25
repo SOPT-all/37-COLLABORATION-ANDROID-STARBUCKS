@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import sopt.org.starbucks.data.model.MenuDetailModel
 import sopt.org.starbucks.ui.mymenu.component.DrinkSize
 import sopt.org.starbucks.ui.mymenu.component.TabType
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class EditMenuViewModel
                 // Mock 데이터
                 _uiState.update {
                     it.copy(
-                        menu = MenuDetail(
+                        menu = MenuDetailModel(
                             id = menuId,
                             koreanName = "아이스 핑크 팝 캐모마일 릴렉서",
                             englishName = "Iced Pink Pop Chamomile Relaxer",
