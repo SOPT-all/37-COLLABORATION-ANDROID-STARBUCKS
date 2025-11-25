@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -62,6 +63,7 @@ fun OnlineStoreCard(
 
     Box(
         modifier = modifier
+            .fillMaxWidth()
             .background(
                 color = backgroundColor,
                 shape = RoundedCornerShape(12.dp)
@@ -111,6 +113,16 @@ private fun OnlineStoreCardPreview() {
     StarbucksTheme {
         OnlineStoreCard(
             onlineStoreType = OnlineStoreType.SSGDAY
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun OnlineStoreCardPreview2() {
+    StarbucksTheme {
+        OnlineStoreCard(
+            onlineStoreType = OnlineStoreType.HEART
         )
     }
 }

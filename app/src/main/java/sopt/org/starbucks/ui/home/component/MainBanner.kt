@@ -4,13 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -28,7 +28,7 @@ fun MainBanner(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(240.dp)
+            .aspectRatio(360f / 240f)
     ) {
         Image(
             painter = painterResource(R.drawable.img_banner),
@@ -38,22 +38,22 @@ fun MainBanner(
         )
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 69.dp, start = 22.dp),
-            verticalArrangement = Arrangement.Top
+                .matchParentSize()
+                .padding(start = 22.dp, top = 69.dp),
+            verticalArrangement = Arrangement.spacedBy(7.dp, Alignment.Top)
         ) {
             Text(
                 text = line1,
                 style = StarbucksTheme.typography.headBold21,
-                color = StarbucksTheme.colors.black
+                color = StarbucksTheme.colors.black,
+                modifier = Modifier.padding(end = 16.dp)
             )
-
-            Spacer(modifier = Modifier.height(7.dp))
 
             Text(
                 text = line2,
                 style = StarbucksTheme.typography.headBold21,
-                color = StarbucksTheme.colors.black
+                color = StarbucksTheme.colors.black,
+                modifier = Modifier.padding(end = 16.dp)
             )
         }
     }
