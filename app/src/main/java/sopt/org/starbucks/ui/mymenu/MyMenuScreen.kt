@@ -6,12 +6,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun MyMenuRoute(paddingValues: PaddingValues) {
+fun MyMenuRoute(
+    paddingValues: PaddingValues,
+    menuId: Long
+) {
     MyMenuScreen(
+        menuId = menuId,
         modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
     )
 }
 
 @Composable
-fun MyMenuScreen(modifier: Modifier = Modifier) {
+fun MyMenuScreen(
+    menuId: Long,
+    modifier: Modifier = Modifier
+) {
 }
