@@ -13,10 +13,10 @@ import sopt.org.starbucks.ui.mymenu.component.TabType
 import javax.inject.Inject
 
 @HiltViewModel
-class EditMenuViewModel
+class MyMenuViewModel
     @Inject
     constructor() : ViewModel() {
-        private val _uiState = MutableStateFlow(EditMenuUiState())
+        private val _uiState = MutableStateFlow(MyMenuUiState())
         val uiState = _uiState.asStateFlow()
 
         fun loadMenu(menuId: String) {
