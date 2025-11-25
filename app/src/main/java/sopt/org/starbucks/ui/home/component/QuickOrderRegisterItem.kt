@@ -55,11 +55,9 @@ fun QuickOrderRegisterItem(
                     cornerRadius = CornerRadius(12.dp.toPx()),
                     style = stroke
                 )
-            }
-            .clip(RoundedCornerShape(12.dp))  // ← clip을 뒤에 적용!
+            }.clip(RoundedCornerShape(12.dp)) // ← clip을 뒤에 적용!
             .background(StarbucksTheme.colors.white)
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -67,7 +65,6 @@ fun QuickOrderRegisterItem(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -90,7 +87,7 @@ fun QuickOrderRegisterItem(
                     Text(
                         text = "나만의 메뉴를 등록하고\nHome에서 빠르게 주문해\n보세요 ☺️",
                         style = StarbucksTheme.typography.headSemiBold12,
-                        color = StarbucksTheme.colors.black,
+                        color = StarbucksTheme.colors.black
                     )
 
                     Spacer(modifier = Modifier.height(4.dp))

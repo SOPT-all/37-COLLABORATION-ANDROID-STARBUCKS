@@ -28,6 +28,7 @@ import sopt.org.starbucks.core.util.noRippleClickable
 
 sealed interface ChipStyle {
     data object White : ChipStyle
+
     data object GreenOutline : ChipStyle
 }
 

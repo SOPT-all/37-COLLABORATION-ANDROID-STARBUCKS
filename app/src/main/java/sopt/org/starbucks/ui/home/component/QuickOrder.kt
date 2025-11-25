@@ -63,7 +63,7 @@ fun QuickOrderList(modifier: Modifier = Modifier) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
-        modifier = modifier,
+        modifier = modifier
     ) {
         items(sampleQuickOrderList) { item ->
             QuickOrderItem(
@@ -104,8 +104,11 @@ fun QuickOrderItem(
                 Icon(
                     painter = painterResource(R.drawable.ic_favorite),
                     contentDescription = null,
-                    tint = if (isFavorite) StarbucksTheme.colors.green500
-                    else StarbucksTheme.colors.gray400,
+                    tint = if (isFavorite) {
+                        StarbucksTheme.colors.green500
+                    } else {
+                        StarbucksTheme.colors.gray400
+                    },
                     modifier = Modifier
                         .padding(2.dp)
                         .noRippleClickable { isFavorite = !isFavorite }
@@ -167,7 +170,6 @@ fun QuickOrderItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         painter = painterResource(R.drawable.ic_location),

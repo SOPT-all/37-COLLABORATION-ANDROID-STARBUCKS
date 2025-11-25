@@ -154,7 +154,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 }
 
 @Preview(
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 private fun HomeScreenPreview() {

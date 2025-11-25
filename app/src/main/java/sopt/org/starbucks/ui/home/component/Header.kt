@@ -26,6 +26,7 @@ import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.util.noRippleClickable
 
 enum class QuickOrderTab { MY_MENU, RECENT_MENU }
+
 enum class SectionType {
     ONLINE_STORE,
     WHATS_NEW,
@@ -164,7 +165,7 @@ fun QuickOrderHeaderPreview() {
     }
 }
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
 private fun SectionHeaderPreview() {
     SectionHeader(
@@ -173,7 +174,7 @@ private fun SectionHeaderPreview() {
     )
 }
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
 private fun SectionHeaderPreview2() {
     SectionHeader(
@@ -183,7 +184,7 @@ private fun SectionHeaderPreview2() {
     )
 }
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
 private fun SectionHeaderPreview3() {
     SectionHeader(
