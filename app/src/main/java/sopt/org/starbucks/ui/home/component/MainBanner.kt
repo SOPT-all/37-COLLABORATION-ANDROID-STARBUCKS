@@ -26,7 +26,7 @@ fun MainBanner(
     line1: String,
     line2: String
 ) {
-    BoxWithConstraints (
+    BoxWithConstraints(
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(360f / 240f)
