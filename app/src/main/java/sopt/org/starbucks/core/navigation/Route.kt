@@ -22,4 +22,6 @@ data object Shop : MainTabRoute
 data object Other : MainTabRoute
 
 @Serializable
-data object MyMenu : Route
+data class MyMenu(
+    val menuId: Long
+) : Route

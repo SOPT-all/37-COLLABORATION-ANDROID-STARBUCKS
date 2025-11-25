@@ -2,7 +2,6 @@ package sopt.org.starbucks.ui.mymenu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -31,12 +30,15 @@ import sopt.org.starbucks.ui.mymenu.component.SelectCupSection
 import sopt.org.starbucks.ui.mymenu.component.TabToggle
 import sopt.org.starbucks.ui.mymenu.component.TabType
 
-//@Composable
-//fun MyMenuRoute(paddingValues: PaddingValues) {
+//fun MyMenuRoute(
+//    paddingValues: PaddingValues,
+//    menuId: Long
+//) {
 //    MyMenuScreen(
+//        menuId = menuId,
 //        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
 //    )
-//}TODO 추가 예정
+//} // TODO 추가 예정
 
 @Composable
 fun MyMenuScreen(
@@ -167,3 +169,4 @@ private fun EditMenuScreenPreview() {
         )
     }
 }
+

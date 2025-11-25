@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import sopt.org.starbucks.core.navigation.Home
 import sopt.org.starbucks.core.navigation.MyMenu
 import sopt.org.starbucks.core.navigation.Order
@@ -13,6 +14,7 @@ import sopt.org.starbucks.core.navigation.Other
 import sopt.org.starbucks.core.navigation.Pay
 import sopt.org.starbucks.core.navigation.Shop
 import sopt.org.starbucks.ui.home.HomeRoute
+import sopt.org.starbucks.ui.mymenu.MyMenuRoute
 import sopt.org.starbucks.ui.order.OrderRoute
 
 @Composable
@@ -40,9 +42,11 @@ fun MainNavHost(
         }
         composable<Shop> { }
         composable<Other> { }
-        composable<MyMenu> {
+        composable<MyMenu> { backStackEntry ->
+            val args = backStackEntry.toRoute<MyMenu>()
 //            MyMenuRoute(
-//                paddingValues = paddingValues
+//                paddingValues = paddingValues,
+//                menuId = args.menuId
 //            )
         }
     }
