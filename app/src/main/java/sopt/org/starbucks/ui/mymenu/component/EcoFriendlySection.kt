@@ -1,4 +1,4 @@
-package sopt.org.starbucks.ui.edit.component
+package sopt.org.starbucks.ui.mymenu.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,10 +23,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.noRippleClickable
 
 @Composable
 fun EcoFriendlySection(
     isPersonalCupChecked: Boolean,
+    onPersonalCupToggle: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -50,6 +52,8 @@ fun EcoFriendlySection(
             )
 
             Row(
+                modifier = Modifier
+                    .noRippleClickable(onPersonalCupToggle),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -90,11 +94,13 @@ private fun EcoFriendlySectionPreview() {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             EcoFriendlySection(
-                isPersonalCupChecked = false
+                isPersonalCupChecked = false,
+                onPersonalCupToggle = {}
             )
 
             EcoFriendlySection(
-                isPersonalCupChecked = true
+                isPersonalCupChecked = true,
+                onPersonalCupToggle = {}
             )
         }
     }
