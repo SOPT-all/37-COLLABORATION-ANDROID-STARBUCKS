@@ -5,7 +5,7 @@ sealed interface UiState<out T> {
 
     data object Loading : UiState<Nothing>
 
-    data class Success<T>(
+    data class Success<out T>(
         val data: T
     ) : UiState<T>
 
