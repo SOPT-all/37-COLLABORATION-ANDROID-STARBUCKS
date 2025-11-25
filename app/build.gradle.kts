@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.androidx.navigation.compose)
 
     // coil
     implementation(libs.coil.compose)
@@ -91,7 +92,7 @@ dependencies {
     implementation(libs.timber)
 
     // Hilt
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 }
