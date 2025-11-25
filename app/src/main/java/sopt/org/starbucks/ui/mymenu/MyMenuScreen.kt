@@ -2,6 +2,7 @@ package sopt.org.starbucks.ui.mymenu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -10,14 +11,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.state.UiState
+import sopt.org.starbucks.core.util.onSuccess
+import sopt.org.starbucks.core.util.toStringWithFormat
 import sopt.org.starbucks.data.model.MenuDetailModel
 import sopt.org.starbucks.ui.mymenu.component.DrinkImageSection
 import sopt.org.starbucks.ui.mymenu.component.DrinkSize
@@ -55,10 +58,7 @@ fun MyMenuRoute(
 
 @Composable
 fun MyMenuScreen(
-    menu: MenuDetailModel,
-    selectedTab: TabType,
-    selectedSize: DrinkSize,
-    isPersonalCupChecked: Boolean,
+    uiState: MyMenuUiState,
     onTabSelected: (TabType) -> Unit,
     onSizeSelected: (DrinkSize) -> Unit,
     onPersonalCupToggle: () -> Unit,
@@ -66,27 +66,68 @@ fun MyMenuScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(StarbucksTheme.colors.white)
+    ) {
+        uiState.menuLoadState.onSuccess { menu ->
+            MyMenuContent(
+                menu = menu,
+                selectedTab = uiState.selectedTab,
+                selectedSize = uiState.selectedSize,
+                isPersonalCupChecked = uiState.isPersonalCupChecked,
+                onTabSelected = onTabSelected,
+                onSizeSelected = onSizeSelected,
+                onPersonalCupToggle = onPersonalCupToggle,
+                onBackClick = onBackClick
+            )
+        }
+    }
+}
+
+@Composable
+private fun MyMenuContent(
+    menu: MenuDetailModel,
+    selectedTab: TabType,
+    selectedSize: DrinkSize,
+    isPersonalCupChecked: Boolean,
+    onTabSelected: (TabType) -> Unit,
+    onSizeSelected: (DrinkSize) -> Unit,
+    onPersonalCupToggle: () -> Unit,
+    onBackClick: () -> Unit
+) {
+    val sizePrice = when (selectedSize) {
+        DrinkSize.TALL -> menu.sizePrices.tall
+        DrinkSize.GRANDE -> menu.sizePrices.grande
+        DrinkSize.VENTI -> menu.sizePrices.venti
+    }
+    val totalPrice = menu.price + sizePrice
+
+    Column(
+        modifier = Modifier.fillMaxSize()
     ) {
         Column(
             modifier = Modifier
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
         ) {
+            val (imageUrl, koreanName, englishName) = when (selectedTab) {
+                TabType.HOT -> Triple(menu.hotMenuImageUrl, menu.hotMenuKr, menu.hotMenuEng)
+                TabType.ICED -> Triple(menu.iceMenuImageUrl, menu.iceMenuKr, menu.iceMenuEng)
+            }
+
             DrinkImageSection(
                 modifier = Modifier,
-                imageUrl = menu.imageUrl,
+                imageUrl = imageUrl,
                 onBackClick = onBackClick
             )
 
             Spacer(modifier = Modifier.height(20.dp))
 
             DrinkTitleSection(
-                koreanTitle = menu.koreanName,
-                englishTitle = menu.englishName,
-                description = menu.description,
+                koreanTitle = koreanName,
+                englishTitle = englishName,
+                description = menu.info,
                 isNew = menu.isNew,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -94,7 +135,7 @@ fun MyMenuScreen(
             Spacer(modifier = Modifier.height(11.5.dp))
 
             Text(
-                text = "${menu.price}원",
+                text = "${totalPrice.toStringWithFormat()}원",
                 style = StarbucksTheme.typography.bodyBold22,
                 color = StarbucksTheme.colors.black,
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -152,32 +193,13 @@ fun MyMenuScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun EditMenuScreenPreview() {
-    var selectedTab by remember { mutableStateOf(TabType.ICED) }
-    var selectedSize by remember { mutableStateOf(DrinkSize.TALL) }
-    var isPersonalCupChecked by remember { mutableStateOf(false) }
-
+private fun MyMenuScreenLoadingPreview() {
     StarbucksTheme {
         MyMenuScreen(
-            menu = MenuDetailModel(
-                id = "1",
-                koreanName = "아이스 핑크 팝 캐모마일 릴렉서",
-                englishName = "Iced Pink Pop Chamomile Relaxer",
-                description = "크리스마스에 어울리는 상큼한 핑크팝과 캐모마일 릴렉서! 리치, 레몬그라스, 캐모마일의 차분하면서도 새콤달콤한 조합",
-                imageUrl = null,
-                price = 6500,
-                isNew = true,
-                notices = listOf(
-                    "* 리치 과육의 숙 캡슐이 있을 수 있지만 안심하고 드세요.",
-                    "* 대체당(스테비아)을 일부 사용하여 당과 칼로리를 낮췄습니다."
-                )
-            ),
-            selectedTab = selectedTab,
-            selectedSize = selectedSize,
-            isPersonalCupChecked = isPersonalCupChecked,
-            onTabSelected = { selectedTab = it },
-            onSizeSelected = { selectedSize = it },
-            onPersonalCupToggle = { isPersonalCupChecked = !isPersonalCupChecked },
+            uiState = MyMenuUiState(menuLoadState = UiState.Loading),
+            onTabSelected = {},
+            onSizeSelected = {},
+            onPersonalCupToggle = {},
             onBackClick = {}
         )
     }
