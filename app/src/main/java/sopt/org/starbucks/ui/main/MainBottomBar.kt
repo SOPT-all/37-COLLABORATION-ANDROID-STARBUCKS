@@ -70,7 +70,7 @@ private fun RowScope.MainBottomBarItem(
     Column(
         modifier = modifier
             .background(StarbucksTheme.colors.gray100)
-            .padding(top = 10.dp)
+            .padding(vertical = 10.dp)
             .navigationBarsPadding()
             .align(Alignment.CenterVertically)
             .weight(1f)

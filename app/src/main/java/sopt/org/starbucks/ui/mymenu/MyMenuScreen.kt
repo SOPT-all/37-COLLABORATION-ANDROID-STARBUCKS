@@ -2,7 +2,6 @@ package sopt.org.starbucks.ui.mymenu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -35,7 +34,6 @@ import sopt.org.starbucks.ui.mymenu.component.TabType
 
 @Composable
 fun MyMenuRoute(
-    paddingValues: PaddingValues,
     menuId: Long,
     onBackClick: () -> Unit,
     viewModel: MyMenuViewModel = hiltViewModel()
@@ -51,8 +49,7 @@ fun MyMenuRoute(
         onTabSelected = viewModel::selectTab,
         onSizeSelected = viewModel::selectSize,
         onPersonalCupToggle = viewModel::togglePersonalCup,
-        onBackClick = onBackClick,
-        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
+        onBackClick = onBackClick
     )
 }
 
