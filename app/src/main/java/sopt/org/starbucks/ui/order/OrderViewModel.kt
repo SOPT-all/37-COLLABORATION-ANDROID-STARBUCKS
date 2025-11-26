@@ -22,10 +22,6 @@ class OrderViewModel
         private val _uiState = MutableStateFlow<OrderUiState>(OrderUiState())
         val uiState: StateFlow<OrderUiState> = _uiState.asStateFlow()
 
-        init {
-            loadMyMenuList()
-        }
-
         fun loadMyMenuList() {
             viewModelScope.launch {
                 _uiState.update { it.copy(myMenuListLoadState = UiState.Loading) }
