@@ -6,10 +6,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import sopt.org.starbucks.core.state.UiState
 import sopt.org.starbucks.data.repository.MyHomeMenuRepository
+import sopt.org.starbucks.ui.home.component.QuickOrderTab
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +21,7 @@ class HomeViewModel
         private val repository: MyHomeMenuRepository
     ) : ViewModel() {
         private val _uiState = MutableStateFlow(HomeUiState())
-        val uiState: StateFlow<HomeUiState> = _uiState
+        val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
         fun loadQuickOrder() {
             viewModelScope.launch {
@@ -36,5 +38,9 @@ class HomeViewModel
                         }
                     }
             }
+        }
+
+        fun updateSelectedTab(tab: QuickOrderTab) {
+            _uiState.update { it.copy(selectedTab = tab) }
         }
     }

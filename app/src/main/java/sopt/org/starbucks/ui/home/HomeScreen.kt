@@ -17,8 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,25 +46,25 @@ fun HomeRoute(
     navigateToOrder: () -> Unit
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
-    
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadQuickOrder()
+    }
+
     HomeScreen(
         modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding()),
-        viewModel = viewModel
+        uiState = uiState,
+        onTabSelected = { viewModel.updateSelectedTab(it) }
     )
 }
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel
+    uiState: HomeUiState,
+    onTabSelected: (QuickOrderTab) -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var selectedTab by rememberSaveable { mutableStateOf(QuickOrderTab.MY_MENU) }
-
-    LaunchedEffect(Unit) {
-        viewModel.loadQuickOrder()
-    }
-
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -95,8 +93,8 @@ fun HomeScreen(
 
         item {
             QuickOrderHeader(
-                selectedTab = selectedTab,
-                onTabSelected = { selectedTab = it }
+                selectedTab = uiState.selectedTab,
+                onTabSelected = onTabSelected
             )
         }
 
