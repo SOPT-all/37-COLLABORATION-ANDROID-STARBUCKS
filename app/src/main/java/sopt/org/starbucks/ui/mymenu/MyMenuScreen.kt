@@ -12,13 +12,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
-import sopt.org.starbucks.core.state.UiState
 import sopt.org.starbucks.core.util.onSuccess
 import sopt.org.starbucks.core.util.toStringWithFormat
 import sopt.org.starbucks.data.model.MenuDetailModel
@@ -30,6 +29,7 @@ import sopt.org.starbucks.ui.mymenu.component.MyMenuRegisterBar
 import sopt.org.starbucks.ui.mymenu.component.NoticeBox
 import sopt.org.starbucks.ui.mymenu.component.ProductInfoButton
 import sopt.org.starbucks.ui.mymenu.component.SelectCupSection
+import sopt.org.starbucks.ui.mymenu.component.StarbucksOrderDialog
 import sopt.org.starbucks.ui.mymenu.component.TabToggle
 import sopt.org.starbucks.ui.mymenu.component.TabType
 
@@ -40,18 +40,34 @@ fun MyMenuRoute(
     onBackClick: () -> Unit,
     viewModel: MyMenuViewModel = hiltViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(menuId) {
         viewModel.loadMenu(menuId)
     }
 
+    if (uiState.showDialog) {
+        val content = when(uiState.dialogType) {
+            DialogType.RESET -> "전체 초기화하면 설정하신 퍼스널 옵션을 되돌릴 수 없어요."
+            DialogType.DELETE -> "${uiState.optionType?.option}"
+        }
+        StarbucksOrderDialog(
+            onDismissRequest = viewModel::onDismissRequest,
+            dialogType = uiState.dialogType,
+            content = content,
+            onConfirmClick = viewModel::onDialogConfirm,
+            onCancelClick = viewModel::onDismissRequest
+        )
+    }
+
     MyMenuScreen(
-        uiState = uiState.value,
+        uiState = uiState,
         onTabSelected = viewModel::selectTab,
         onSizeSelected = viewModel::selectSize,
         onPersonalCupToggle = viewModel::togglePersonalCup,
         onBackClick = onBackClick,
+        onResetClick = viewModel::onResetClick,
+        onCancelClick = viewModel::onCancelClick,
         modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
     )
 }
@@ -63,6 +79,8 @@ fun MyMenuScreen(
     onSizeSelected: (DrinkSize) -> Unit,
     onPersonalCupToggle: () -> Unit,
     onBackClick: () -> Unit,
+    onResetClick:() -> Unit,
+    onCancelClick:(OptionType) -> Unit,
     modifier: Modifier = Modifier
 ) {
     uiState.menuLoadState.onSuccess { menu ->
@@ -71,10 +89,13 @@ fun MyMenuScreen(
             selectedTab = uiState.selectedTab,
             selectedSize = uiState.selectedSize,
             isPersonalCupChecked = uiState.isPersonalCupChecked,
+            optionList = uiState.optionList,
             onTabSelected = onTabSelected,
             onSizeSelected = onSizeSelected,
             onPersonalCupToggle = onPersonalCupToggle,
             onBackClick = onBackClick,
+            onResetClick = onResetClick,
+            onCancelClick = onCancelClick,
             modifier = modifier
         )
     }
@@ -86,10 +107,13 @@ private fun MyMenuContent(
     selectedTab: TabType,
     selectedSize: DrinkSize,
     isPersonalCupChecked: Boolean,
+    optionList: List<OptionType>,
     onTabSelected: (TabType) -> Unit,
     onSizeSelected: (DrinkSize) -> Unit,
     onPersonalCupToggle: () -> Unit,
     onBackClick: () -> Unit,
+    onResetClick:() -> Unit,
+    onCancelClick:(OptionType) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val sizePrice = when (selectedSize) {
@@ -179,27 +203,17 @@ private fun MyMenuContent(
 
             Spacer(modifier = Modifier.height(9.dp))
 
-            PersonalOptionContent()
+            PersonalOptionContent(
+                optionList = optionList,
+                onResetClick = onResetClick,
+                onCancelClick = onCancelClick,
+            )
         }
 
         MyMenuRegisterBar(
             optionInfo = "${selectedTab.title} | ${selectedSize.displayName}",
             onAddNewClick = { },
             onSaveClick = { }
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun MyMenuScreenLoadingPreview() {
-    StarbucksTheme {
-        MyMenuScreen(
-            uiState = MyMenuUiState(menuLoadState = UiState.Loading),
-            onTabSelected = {},
-            onSizeSelected = {},
-            onPersonalCupToggle = {},
-            onBackClick = {}
         )
     }
 }

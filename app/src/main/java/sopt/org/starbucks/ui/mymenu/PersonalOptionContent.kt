@@ -16,13 +16,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.noRippleClickable
 
 @Composable
-fun PersonalOptionContent(modifier: Modifier = Modifier) {
+fun PersonalOptionContent(
+    optionList: List<OptionType>,
+    onResetClick: () -> Unit,
+    onCancelClick: (OptionType) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -46,18 +51,26 @@ fun PersonalOptionContent(modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Text(
-                text = "전체 초기화",
-                style = StarbucksTheme.typography.bodyRegular13,
-                color = StarbucksTheme.colors.green500,
-                modifier = Modifier.padding(end = 3.dp)
-            )
+            Row(
+                modifier = Modifier.noRippleClickable(onClick = onResetClick),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 
-            Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_reset),
-                contentDescription = "ic_reset",
-                tint = StarbucksTheme.colors.green500
-            )
+                Text(
+                    text = "전체 초기화",
+                    style = StarbucksTheme.typography.bodyRegular13,
+                    color = StarbucksTheme.colors.green500,
+                    modifier = Modifier.padding(end = 3.dp)
+
+                )
+
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_reset),
+                    contentDescription = "ic_reset",
+                    tint = StarbucksTheme.colors.green500
+                )
+
+            }
         }
 
         Spacer(modifier = Modifier.height(9.dp))
@@ -66,22 +79,16 @@ fun PersonalOptionContent(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        OptionContent(
-            option = "핑크 리치 보바 없음"
-        )
+        optionList.forEachIndexed { index, type ->
+            OptionContent(
+                type = type,
+                onDeleteClick = onCancelClick
+            )
 
-        Spacer(modifier = Modifier.height(9.dp))
-
-        OptionContent(
-            option = "로즈마리 많이"
-        )
-
-        Spacer(modifier = Modifier.height(9.dp))
-
-        OptionContent(
-            option = "일반휘핑 많이",
-            price = 800
-        )
+            if (index != optionList.lastIndex) {
+                Spacer(modifier = Modifier.height(9.dp))
+            }
+        }
     }
 }
 
@@ -106,9 +113,9 @@ private fun OptionTipBox() {
 
 @Composable
 private fun OptionContent(
-    option: String,
+    type: OptionType,
+    onDeleteClick: (OptionType) -> Unit,
     modifier: Modifier = Modifier,
-    price: Int? = null
 ) {
     Row(
         modifier = modifier
@@ -118,21 +125,23 @@ private fun OptionContent(
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_cancel),
             contentDescription = "cancel icon",
-            modifier = Modifier.padding(end = 5.dp),
+            modifier = Modifier
+                .padding(end = 5.dp)
+                .noRippleClickable(onClick = { onDeleteClick(type) }),
             tint = StarbucksTheme.colors.gray200
         )
 
         Text(
-            text = option,
+            text = type.option,
             style = StarbucksTheme.typography.captionRegular13,
             color = StarbucksTheme.colors.brown
         )
 
-        if (price != null) {
+        if (type.price != null) {
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text = "${price}원",
+                text = "${type.price}원",
                 style = StarbucksTheme.typography.captionRegular13,
                 color = StarbucksTheme.colors.brown
             )
@@ -140,10 +149,3 @@ private fun OptionContent(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun PersonalOptionContentPreview() {
-    StarbucksTheme {
-        PersonalOptionContent()
-    }
-}
