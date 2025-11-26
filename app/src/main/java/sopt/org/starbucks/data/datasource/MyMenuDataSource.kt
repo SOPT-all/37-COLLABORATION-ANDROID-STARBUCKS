@@ -11,16 +11,16 @@ import javax.inject.Singleton
 
 @Singleton
 class MyMenuDataSource
-@Inject
-constructor(
-    private val myMenuService: MyMenuService
-) {
-    suspend fun getMyMenuList(): BaseResponse<MyMenuListDto> = myMenuService.getMyMenuList()
+    @Inject
+    constructor(
+        private val myMenuService: MyMenuService
+    ) {
+        suspend fun getMyMenuList(): BaseResponse<MyMenuListDto> = myMenuService.getMyMenuList()
 
-    suspend fun getMyMenuDetail(menuId: Long): BaseResponse<MyMenuDetailDto> = myMenuService.getMyMenuDetail(menuId)
+        suspend fun getMyMenuDetail(menuId: Long): BaseResponse<MyMenuDetailDto> = myMenuService.getMyMenuDetail(menuId)
 
-    suspend fun updateMyMenuOption(
-        menuId: Long,
-        request: MyMenuOptionRequestDto
-    ): BaseResponse<MyMenuOptionResponseDto> = myMenuService.updateMyMenuOption(menuId = menuId, requestDto = request)
-}
+        suspend fun updateMyMenuOption(
+            menuId: Long,
+            request: MyMenuOptionRequestDto
+        ): BaseResponse<MyMenuOptionResponseDto> = myMenuService.updateMyMenuOption(menuId = menuId, requestDto = request)
+    }

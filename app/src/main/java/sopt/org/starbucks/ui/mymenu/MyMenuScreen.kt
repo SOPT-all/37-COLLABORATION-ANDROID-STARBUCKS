@@ -48,7 +48,7 @@ fun MyMenuRoute(
     }
 
     if (uiState.showDialog) {
-        val content = when(uiState.dialogType) {
+        val content = when (uiState.dialogType) {
             DialogType.RESET -> "전체 초기화하면 설정하신 퍼스널 옵션을 되돌릴 수 없어요."
             DialogType.DELETE -> "${uiState.optionType?.option}"
         }
@@ -84,8 +84,8 @@ fun MyMenuScreen(
     onSizeSelected: (DrinkSize) -> Unit,
     onPersonalCupToggle: () -> Unit,
     onBackClick: () -> Unit,
-    onResetClick:() -> Unit,
-    onCancelClick:(OptionType) -> Unit,
+    onResetClick: () -> Unit,
+    onCancelClick: (OptionType) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -119,8 +119,8 @@ private fun MyMenuContent(
     onSizeSelected: (DrinkSize) -> Unit,
     onPersonalCupToggle: () -> Unit,
     onBackClick: () -> Unit,
-    onResetClick:() -> Unit,
-    onCancelClick:(OptionType) -> Unit,
+    onResetClick: () -> Unit,
+    onCancelClick: (OptionType) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -214,7 +214,7 @@ private fun MyMenuContent(
             PersonalOptionContent(
                 optionList = optionList,
                 onResetClick = onResetClick,
-                onCancelClick = onCancelClick,
+                onCancelClick = onCancelClick
             )
         }
 

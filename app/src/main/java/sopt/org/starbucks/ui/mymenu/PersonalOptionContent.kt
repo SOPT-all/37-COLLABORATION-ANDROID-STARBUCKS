@@ -55,13 +55,11 @@ fun PersonalOptionContent(
                 modifier = Modifier.noRippleClickable(onClick = onResetClick),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 Text(
                     text = "전체 초기화",
                     style = StarbucksTheme.typography.bodyRegular13,
                     color = StarbucksTheme.colors.green500,
                     modifier = Modifier.padding(end = 3.dp)
-
                 )
 
                 Icon(
@@ -69,7 +67,6 @@ fun PersonalOptionContent(
                     contentDescription = "ic_reset",
                     tint = StarbucksTheme.colors.green500
                 )
-
             }
         }
 
@@ -115,7 +112,7 @@ private fun OptionTipBox() {
 private fun OptionContent(
     type: OptionType,
     onDeleteClick: (OptionType) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -148,4 +145,3 @@ private fun OptionContent(
         }
     }
 }
-
