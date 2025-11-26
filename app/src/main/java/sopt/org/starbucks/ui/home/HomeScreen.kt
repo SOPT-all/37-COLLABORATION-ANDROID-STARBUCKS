@@ -17,7 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,7 +54,12 @@ fun HomeRoute(
     HomeScreen(
         modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding()),
         uiState = uiState,
-        onTabSelected = { viewModel.updateSelectedTab(it) }
+        onTabSelected = { tab ->
+            viewModel.updateSelectedTab(tab)
+        },
+        onPencilClick = {
+            navigateToOrder()
+        }
     )
 }
 
@@ -63,7 +67,8 @@ fun HomeRoute(
 fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUiState,
-    onTabSelected: (QuickOrderTab) -> Unit
+    onTabSelected: (QuickOrderTab) -> Unit,
+    onPencilClick: () -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -94,7 +99,8 @@ fun HomeScreen(
         item {
             QuickOrderHeader(
                 selectedTab = uiState.selectedTab,
-                onTabSelected = onTabSelected
+                onTabSelected = onTabSelected,
+                onPencilClick = onPencilClick
             )
         }
 
