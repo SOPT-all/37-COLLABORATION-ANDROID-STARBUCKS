@@ -3,6 +3,7 @@ package sopt.org.starbucks.ui.order
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -21,7 +22,7 @@ class OrderViewModel
     constructor(
         private val myMenuRepository: MyMenuRepository
     ) : ViewModel() {
-        private val _myMenuListLoadState = MutableStateFlow<UiState<List<MyMenu>>>(UiState.Init)
+        private val _myMenuListLoadState = MutableStateFlow<UiState<ImmutableList<MyMenu>>>(UiState.Init)
         private val _currentTab = MutableStateFlow(OrderTab.ALL)
 
         val uiState: StateFlow<OrderUiState> = combine(
@@ -43,10 +44,7 @@ class OrderViewModel
                         UiState.Success(filteredList.toImmutableList())
                     }
                 }
-                is UiState.Loading -> UiState.Loading
-                is UiState.Failure -> UiState.Failure(loadState.message)
-                is UiState.Empty -> UiState.Empty
-                is UiState.Init -> UiState.Init
+                else -> loadState
             }
 
             OrderUiState(
@@ -70,7 +68,7 @@ class OrderViewModel
                         _myMenuListLoadState.value = if (myMenuList.isEmpty()) {
                             UiState.Empty
                         } else {
-                            UiState.Success(myMenuList)
+                            UiState.Success(myMenuList.toImmutableList())
                         }
                     }.onFailure { t ->
                         _myMenuListLoadState.value = UiState.Failure(t.message ?: "Failed to get Data")
