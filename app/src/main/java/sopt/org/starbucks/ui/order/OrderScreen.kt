@@ -61,7 +61,12 @@ fun OrderScreen(
             }
 
             uiState.myMenuListLoadState.onSuccess { list ->
-                items(list) { myMenu ->
+                val filteredList = when (uiState.currentTab) {
+                    OrderTab.ALL -> list
+                    OrderTab.DRINK -> list.filter { it.category == "DRINK" }
+                    OrderTab.FOOD -> list.filter { it.category == "FOOD" }
+                }
+                items(filteredList) { myMenu ->
                     MyMenuItem(
                         imgUrl = myMenu.imgUrl,
                         myMenuName = myMenu.myMenuName,

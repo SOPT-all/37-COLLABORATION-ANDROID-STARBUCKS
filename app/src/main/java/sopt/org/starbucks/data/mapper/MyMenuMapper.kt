@@ -7,6 +7,7 @@ import sopt.org.starbucks.data.model.MyMenu
 fun MyMenuDto.toDomain(): MyMenu =
     MyMenu(
         myMenuId = this.myMenuId,
+        category = this.categoryName,
         myMenuName = this.myMenuName,
         menuName = this.menuName,
         myMenuOption = this.myMenuOption,
