@@ -12,10 +12,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,13 +55,16 @@ private fun RecommendMenuItem(
     Column(
         modifier = modifier
             .width(122.dp)
-            .padding(top = 10.dp, bottom = 28.dp),
+            .padding(top = 10.dp, bottom = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             painter = painterResource(menuImage),
             contentDescription = "menu Image",
-            modifier = Modifier.size(122.dp)
+            modifier = Modifier
+                .size(122.dp)
+                .clip(shape = CircleShape),
+            contentScale = ContentScale.Crop
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -67,7 +73,8 @@ private fun RecommendMenuItem(
             text = menuTitle,
             style = StarbucksTheme.typography.captionRegular13,
             color = StarbucksTheme.colors.gray900,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            maxLines = 2
         )
     }
 }
