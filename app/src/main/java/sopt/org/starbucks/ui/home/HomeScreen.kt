@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -24,12 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
-import sopt.org.starbucks.core.util.onSuccess
 import sopt.org.starbucks.ui.home.component.ChipSection
 import sopt.org.starbucks.ui.home.component.MainBanner
 import sopt.org.starbucks.ui.home.component.NewsContent
@@ -43,25 +40,18 @@ import sopt.org.starbucks.ui.home.component.SectionType
 import sopt.org.starbucks.ui.home.component.type.OnlineStoreType
 
 @Composable
-fun HomeRoute(paddingValues: PaddingValues) {
-    val viewModel: HomeViewModel = hiltViewModel()
+fun HomeRoute(
+    paddingValues: PaddingValues,
+    navigateToOrder: () -> Unit
+) {
     HomeScreen(
-        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding()),
-        viewModel = viewModel
+        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
     )
 }
 
 @Composable
-fun HomeScreen(
-    modifier: Modifier = Modifier,
-    viewModel: HomeViewModel
-) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+fun HomeScreen(modifier: Modifier = Modifier) {
     var selectedTab by rememberSaveable { mutableStateOf(QuickOrderTab.MY_MENU) }
-
-    LaunchedEffect(Unit) {
-        viewModel.loadQuickOrder()
-    }
 
     LazyColumn(
         modifier = modifier
@@ -85,6 +75,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .align(Alignment.BottomStart)
                         .offset(y = (-37).dp)
+                        .padding(start = 22.dp)
                 )
             }
         }
@@ -96,10 +87,8 @@ fun HomeScreen(
             )
         }
 
-        uiState.quickOrderList.onSuccess { list ->
-            item {
-                QuickOrderList(list = list)
-            }
+        item {
+            QuickOrderList()
         }
 
         item {
@@ -164,5 +153,15 @@ fun HomeScreen(
         item {
             Spacer(modifier = Modifier.height(32.dp))
         }
+    }
+}
+
+@Preview(
+    showBackground = true
+)
+@Composable
+private fun HomeScreenPreview() {
+    StarbucksTheme {
+        HomeScreen()
     }
 }
