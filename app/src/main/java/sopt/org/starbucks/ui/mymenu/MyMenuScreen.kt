@@ -65,23 +65,18 @@ fun MyMenuScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(StarbucksTheme.colors.white)
-    ) {
-        uiState.menuLoadState.onSuccess { menu ->
-            MyMenuContent(
-                menu = menu,
-                selectedTab = uiState.selectedTab,
-                selectedSize = uiState.selectedSize,
-                isPersonalCupChecked = uiState.isPersonalCupChecked,
-                onTabSelected = onTabSelected,
-                onSizeSelected = onSizeSelected,
-                onPersonalCupToggle = onPersonalCupToggle,
-                onBackClick = onBackClick
-            )
-        }
+    uiState.menuLoadState.onSuccess { menu ->
+        MyMenuContent(
+            menu = menu,
+            selectedTab = uiState.selectedTab,
+            selectedSize = uiState.selectedSize,
+            isPersonalCupChecked = uiState.isPersonalCupChecked,
+            onTabSelected = onTabSelected,
+            onSizeSelected = onSizeSelected,
+            onPersonalCupToggle = onPersonalCupToggle,
+            onBackClick = onBackClick,
+            modifier = modifier
+        )
     }
 }
 
@@ -94,7 +89,8 @@ private fun MyMenuContent(
     onTabSelected: (TabType) -> Unit,
     onSizeSelected: (DrinkSize) -> Unit,
     onPersonalCupToggle: () -> Unit,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val sizePrice = when (selectedSize) {
         DrinkSize.TALL -> menu.sizePrices.tall
@@ -104,12 +100,15 @@ private fun MyMenuContent(
     val totalPrice = menu.price + sizePrice
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .background(StarbucksTheme.colors.white)
     ) {
         Column(
             modifier = Modifier
                 .weight(1f)
                 .verticalScroll(rememberScrollState())
+                .padding(bottom = 14.dp)
         ) {
             val (imageUrl, koreanName, englishName) = when (selectedTab) {
                 TabType.HOT -> Triple(menu.hotMenuImageUrl, menu.hotMenuKr, menu.hotMenuEng)
