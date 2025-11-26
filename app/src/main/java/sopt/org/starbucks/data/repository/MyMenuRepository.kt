@@ -2,6 +2,7 @@ package sopt.org.starbucks.data.repository
 
 import sopt.org.starbucks.data.datasource.MyMenuDataSource
 import sopt.org.starbucks.data.mapper.toDomain
+import sopt.org.starbucks.data.model.MenuDetailModel
 import sopt.org.starbucks.data.model.MyMenu
 import sopt.org.starbucks.data.network.handleApiResponse
 import sopt.org.starbucks.data.network.safeApiCall
@@ -18,6 +19,15 @@ class MyMenuRepository
             safeApiCall {
                 myMenuDataSource
                     .getMyMenuList()
+                    .handleApiResponse()
+                    .getOrThrow()
+                    .toDomain()
+            }
+
+        suspend fun getMyMenuDetail(menuId: Long): Result<MenuDetailModel> =
+            safeApiCall {
+                myMenuDataSource
+                    .getMyMenuDetail(menuId)
                     .handleApiResponse()
                     .getOrThrow()
                     .toDomain()

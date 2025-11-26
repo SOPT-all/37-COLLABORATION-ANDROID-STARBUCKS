@@ -31,6 +31,16 @@ fun DrinkImageSection(
             .fillMaxWidth()
             .background(StarbucksTheme.colors.red01)
     ) {
+        // 음료 이미지
+        AsyncImage(
+            model = imageUrl,
+            contentDescription = "중앙 음료 이미자",
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .aspectRatio(1f)
+        )
+
         // 뒤로가기
         IconButton(
             onClick = onBackClick,
@@ -60,16 +70,6 @@ fun DrinkImageSection(
                 tint = Color.Unspecified
             )
         }
-
-        // 음료 이미지
-        AsyncImage(
-            model = imageUrl,
-            contentDescription = "중앙 음료 이미자",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .aspectRatio(1f)
-        )
 
         // 이미지
         IconButton(
