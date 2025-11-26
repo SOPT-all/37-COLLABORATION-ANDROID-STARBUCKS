@@ -43,8 +43,12 @@ import sopt.org.starbucks.ui.home.component.SectionType
 import sopt.org.starbucks.ui.home.component.type.OnlineStoreType
 
 @Composable
-fun HomeRoute(paddingValues: PaddingValues) {
+fun HomeRoute(
+    paddingValues: PaddingValues,
+    navigateToOrder: () -> Unit
+) {
     val viewModel: HomeViewModel = hiltViewModel()
+    
     HomeScreen(
         modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding()),
         viewModel = viewModel

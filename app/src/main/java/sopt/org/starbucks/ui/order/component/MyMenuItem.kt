@@ -46,6 +46,7 @@ fun MyMenuItem(
         modifier = modifier
             .fillMaxWidth()
             .bottomBorder(1.dp, StarbucksTheme.colors.gray200)
+            .noRippleClickable(onEditClick)
             .padding(horizontal = 16.dp)
             .padding(top = 12.dp, bottom = 20.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -53,7 +54,9 @@ fun MyMenuItem(
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_cancel),
             contentDescription = null,
-            modifier = Modifier.align(Alignment.End),
+            modifier = Modifier
+                .align(Alignment.End)
+                .noRippleClickable {},
             tint = StarbucksTheme.colors.gray200
         )
         Row(
@@ -85,7 +88,7 @@ fun MyMenuItem(
                         contentDescription = null,
                         modifier = Modifier
                             .size(18.dp)
-                            .noRippleClickable(onEditClick),
+                            .noRippleClickable {},
                         tint = StarbucksTheme.colors.gray700
                     )
                 }
@@ -117,12 +120,14 @@ fun MyMenuItem(
             MyMenuItemButton(
                 text = "담기",
                 textColor = StarbucksTheme.colors.green500,
-                backgroundColor = StarbucksTheme.colors.transparent
+                backgroundColor = StarbucksTheme.colors.transparent,
+                onClick = {}
             )
             MyMenuItemButton(
                 text = "주문하기",
                 textColor = StarbucksTheme.colors.white,
-                backgroundColor = StarbucksTheme.colors.green500
+                backgroundColor = StarbucksTheme.colors.green500,
+                onClick = {}
             )
         }
     }
@@ -133,6 +138,7 @@ private fun MyMenuItemButton(
     text: String,
     textColor: Color,
     backgroundColor: Color,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     borderColor: Color = StarbucksTheme.colors.green500,
     textStyle: TextStyle = StarbucksTheme.typography.captionRegular13
@@ -142,6 +148,7 @@ private fun MyMenuItemButton(
             .clip(RoundedCornerShape(20.dp))
             .border(1.dp, borderColor, RoundedCornerShape(20.dp))
             .background(backgroundColor)
+            .noRippleClickable(onClick)
             .padding(vertical = 7.dp, horizontal = 12.dp)
     ) {
         Text(

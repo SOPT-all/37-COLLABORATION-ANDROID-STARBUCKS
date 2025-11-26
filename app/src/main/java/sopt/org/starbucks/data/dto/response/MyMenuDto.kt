@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 data class MyMenuDto(
     @SerialName("myMenuId")
     val myMenuId: Long,
+    @SerialName("categoryName")
+    val categoryName: String,
     @SerialName("myMenuName")
     val myMenuName: String,
     @SerialName("menuName")

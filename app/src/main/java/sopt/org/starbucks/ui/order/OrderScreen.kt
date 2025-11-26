@@ -30,14 +30,14 @@ fun OrderRoute(
     navigateToMyMenu: (Long) -> Unit,
     viewModel: OrderViewModel = hiltViewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.loadMyMenuList()
     }
 
     OrderScreen(
-        uiState = uiState.value,
+        uiState = uiState,
         onTabSelected = viewModel::onTabSelected,
         onEditClick = navigateToMyMenu,
         modifier = Modifier.padding(paddingValues)
@@ -66,7 +66,10 @@ fun OrderScreen(
             }
 
             uiState.myMenuListLoadState.onSuccess { list ->
-                items(list) { myMenu ->
+                items(
+                    list,
+                    key = { it.myMenuId }
+                ) { myMenu ->
                     MyMenuItem(
                         imgUrl = myMenu.imgUrl,
                         myMenuName = myMenu.myMenuName,

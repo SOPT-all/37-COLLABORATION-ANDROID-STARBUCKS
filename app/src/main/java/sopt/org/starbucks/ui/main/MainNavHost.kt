@@ -29,7 +29,8 @@ fun MainNavHost(
     ) {
         composable<Home> {
             HomeRoute(
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                navigateToOrder = { navigator.navigate(MainTab.ORDER) }
             )
         }
         composable<Pay> { }
