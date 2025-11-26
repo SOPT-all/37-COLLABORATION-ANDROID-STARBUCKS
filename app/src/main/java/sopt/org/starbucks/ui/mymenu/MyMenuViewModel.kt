@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import sopt.org.starbucks.core.state.UiState
+import sopt.org.starbucks.data.model.OptionItemModel
+import sopt.org.starbucks.data.model.PersonalOptions
 import sopt.org.starbucks.data.repository.MyMenuRepository
 import sopt.org.starbucks.ui.mymenu.component.DrinkSize
 import sopt.org.starbucks.ui.mymenu.component.TabType
@@ -112,6 +114,30 @@ constructor(
                 optionList = currentOptionList,
                 showDialog = false
             )
+        }
+    }
+
+    fun onSaveOption(menuId: Long) {
+        viewModelScope.launch {
+            val currentState = _uiState.value
+
+            val personalOptions = currentState.optionList.map { optionType ->
+                PersonalOptions(
+                    name = optionType.option,
+                    price = optionType.price ?: 0
+                )
+            }
+
+            val optionItem = OptionItemModel(
+                isHot = currentState.selectedTab == TabType.HOT,
+                size = currentState.selectedSize.name,
+                personalOptions = personalOptions
+            )
+            myMenuRepository.updateMyMenuOption(menuId, optionItem)
+                .onSuccess {
+
+
+                }
         }
     }
 }

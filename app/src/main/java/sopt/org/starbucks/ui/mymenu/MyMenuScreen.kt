@@ -38,6 +38,7 @@ fun MyMenuRoute(
     paddingValues: PaddingValues,
     menuId: Long,
     onBackClick: () -> Unit,
+    navigateToOrder: () -> Unit,
     viewModel: MyMenuViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -68,6 +69,10 @@ fun MyMenuRoute(
         onBackClick = onBackClick,
         onResetClick = viewModel::onResetClick,
         onCancelClick = viewModel::onCancelClick,
+        onSaveClick = {
+            viewModel.onSaveOption(menuId)
+            navigateToOrder()
+        },
         modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
     )
 }
@@ -81,6 +86,7 @@ fun MyMenuScreen(
     onBackClick: () -> Unit,
     onResetClick:() -> Unit,
     onCancelClick:(OptionType) -> Unit,
+    onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     uiState.menuLoadState.onSuccess { menu ->
@@ -96,6 +102,7 @@ fun MyMenuScreen(
             onBackClick = onBackClick,
             onResetClick = onResetClick,
             onCancelClick = onCancelClick,
+            onSaveClick = onSaveClick,
             modifier = modifier
         )
     }
@@ -114,6 +121,7 @@ private fun MyMenuContent(
     onBackClick: () -> Unit,
     onResetClick:() -> Unit,
     onCancelClick:(OptionType) -> Unit,
+    onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val sizePrice = when (selectedSize) {
@@ -213,7 +221,7 @@ private fun MyMenuContent(
         MyMenuRegisterBar(
             optionInfo = "${selectedTab.title} | ${selectedSize.displayName}",
             onAddNewClick = { },
-            onSaveClick = { }
+            onSaveClick = onSaveClick
         )
     }
 }
