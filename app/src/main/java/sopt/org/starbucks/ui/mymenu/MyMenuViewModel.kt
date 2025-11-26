@@ -135,8 +135,6 @@ class MyMenuViewModel
                 )
                 myMenuRepository
                     .updateMyMenuOption(menuId, optionItem)
-                    .onSuccess {
-                    }
             }
         }
     }
