@@ -8,6 +8,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ sealed interface ChipStyle {
 fun ChipSection(modifier: Modifier = Modifier) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 22.dp),
         modifier = modifier
     ) {
         item {

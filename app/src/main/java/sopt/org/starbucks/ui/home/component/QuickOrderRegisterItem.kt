@@ -69,7 +69,7 @@ fun QuickOrderRegisterItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 8.dp),
-                verticalAlignment = Alignment.Top
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.img_quick_order),

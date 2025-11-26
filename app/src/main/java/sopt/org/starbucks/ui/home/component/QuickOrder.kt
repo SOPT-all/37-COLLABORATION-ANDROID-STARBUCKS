@@ -1,6 +1,6 @@
 package sopt.org.starbucks.ui.home.component
 
-import androidx.compose.foundation.Image
+import android.R.attr.contentDescription
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,46 +31,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.util.noRippleClickable
-
-data class QuickOrderUiModel(
-    val id: Int,
-    val title: String,
-    val option: String,
-    val imageRes: Int
-)
-
-// 샘플 데이터 - > 삭제 예정
-val sampleQuickOrderList = listOf(
-    QuickOrderUiModel(
-        id = 1,
-        title = "상큼발랄 프레셔",
-        option = "ICED | Tall | 바닐라 시럽2 | 로즈마리 없이 | 얼음 적게 | 일반 휘핑 많이 | 핑크 리치 보바 없이",
-        imageRes = R.drawable.img_sample_drink
-    ),
-    QuickOrderUiModel(
-        id = 2,
-        title = "나의 아메리카노",
-        option = "ICED | Tall | 에스프레소 5샷",
-        imageRes = R.drawable.img_sample_drink
-    )
-)
+import sopt.org.starbucks.data.model.MyHomeMenu
 
 @Composable
-fun QuickOrderList(modifier: Modifier = Modifier) {
+fun QuickOrderList(
+    list: List<MyHomeMenu>,
+    modifier: Modifier = Modifier
+) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
         modifier = modifier
     ) {
-        items(sampleQuickOrderList) { item ->
+        items(list) { item ->
             QuickOrderItem(
                 item = item
             )
         }
-
         item {
             QuickOrderRegisterItem()
         }
@@ -79,7 +60,7 @@ fun QuickOrderList(modifier: Modifier = Modifier) {
 
 @Composable
 fun QuickOrderItem(
-    item: QuickOrderUiModel,
+    item: MyHomeMenu,
     modifier: Modifier = Modifier
 ) {
     var isFavorite by rememberSaveable { mutableStateOf(true) }
@@ -121,8 +102,8 @@ fun QuickOrderItem(
                     .padding(start = 8.dp),
                 verticalAlignment = Alignment.Top
             ) {
-                Image(
-                    painter = painterResource(item.imageRes),
+                AsyncImage(
+                    model = item.myMenuImage,
                     contentDescription = null,
                     modifier = Modifier.size(50.dp)
                 )
@@ -135,7 +116,7 @@ fun QuickOrderItem(
                         .padding(top = 2.dp, end = 16.dp)
                 ) {
                     Text(
-                        text = item.title,
+                        text = item.myMenuName,
                         style = StarbucksTheme.typography.headSemiBold12,
                         color = StarbucksTheme.colors.black
                     )
@@ -143,7 +124,7 @@ fun QuickOrderItem(
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = item.option,
+                        text = item.myMenuOption,
                         style = StarbucksTheme.typography.captionRegular12,
                         color = StarbucksTheme.colors.gray600,
                         maxLines = 2,
@@ -208,11 +189,11 @@ fun QuickOrderItem(
 private fun QuickOrderItemPreview() {
     StarbucksTheme {
         QuickOrderItem(
-            item = QuickOrderUiModel(
-                id = 1,
-                title = "돌체 콜드 브루",
-                option = "톨 | 아이스 | 돌체 시럽 추가",
-                imageRes = R.drawable.img_sample_drink
+            item = MyHomeMenu(
+                myMenuId = 1,
+                myMenuName = "돌체 콜드 브루",
+                myMenuOption = "톨 | 아이스 | 돌체 시럽 추가",
+                myMenuImage = ""
             )
         )
     }

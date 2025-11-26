@@ -15,18 +15,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.onSuccess
 import sopt.org.starbucks.ui.home.component.ChipSection
 import sopt.org.starbucks.ui.home.component.MainBanner
 import sopt.org.starbucks.ui.home.component.NewsContent
@@ -44,15 +44,32 @@ fun HomeRoute(
     paddingValues: PaddingValues,
     navigateToOrder: () -> Unit
 ) {
+    val viewModel: HomeViewModel = hiltViewModel()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadQuickOrder()
+    }
+
     HomeScreen(
-        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
+        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding()),
+        uiState = uiState,
+        onTabSelected = { tab ->
+            viewModel.updateSelectedTab(tab)
+        },
+        onPencilClick = {
+            navigateToOrder()
+        }
     )
 }
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    var selectedTab by rememberSaveable { mutableStateOf(QuickOrderTab.MY_MENU) }
-
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    uiState: HomeUiState,
+    onTabSelected: (QuickOrderTab) -> Unit,
+    onPencilClick: () -> Unit
+) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -75,20 +92,22 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .align(Alignment.BottomStart)
                         .offset(y = (-37).dp)
-                        .padding(start = 22.dp)
                 )
             }
         }
 
         item {
             QuickOrderHeader(
-                selectedTab = selectedTab,
-                onTabSelected = { selectedTab = it }
+                selectedTab = uiState.selectedTab,
+                onTabSelected = onTabSelected,
+                onPencilClick = onPencilClick
             )
         }
 
-        item {
-            QuickOrderList()
+        uiState.quickOrderList.onSuccess { list ->
+            item {
+                QuickOrderList(list = list)
+            }
         }
 
         item {
@@ -153,15 +172,5 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         item {
             Spacer(modifier = Modifier.height(32.dp))
         }
-    }
-}
-
-@Preview(
-    showBackground = true
-)
-@Composable
-private fun HomeScreenPreview() {
-    StarbucksTheme {
-        HomeScreen()
     }
 }

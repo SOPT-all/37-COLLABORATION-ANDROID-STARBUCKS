@@ -12,14 +12,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
@@ -37,6 +32,7 @@ enum class SectionType {
 fun QuickOrderHeader(
     selectedTab: QuickOrderTab,
     onTabSelected: (QuickOrderTab) -> Unit,
+    onPencilClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -67,7 +63,9 @@ fun QuickOrderHeader(
                         painter = painterResource(R.drawable.ic_pencil_11),
                         contentDescription = null,
                         tint = StarbucksTheme.colors.black,
-                        modifier = Modifier.size(11.dp)
+                        modifier = Modifier
+                            .size(11.dp)
+                            .noRippleClickable { onPencilClick() }
                     )
                 }
                 Spacer(modifier = Modifier.width(5.dp))
@@ -150,47 +148,4 @@ fun SectionHeader(
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun QuickOrderHeaderPreview() {
-    StarbucksTheme {
-        var selectedTab by rememberSaveable { mutableStateOf(QuickOrderTab.MY_MENU) }
-
-        QuickOrderHeader(
-            selectedTab = selectedTab,
-            onTabSelected = { selectedTab = it },
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SectionHeaderPreview() {
-    SectionHeader(
-        type = SectionType.ONLINE_STORE,
-        title = "STARBUCKS ONLINE STORE"
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SectionHeaderPreview2() {
-    SectionHeader(
-        type = SectionType.WHATS_NEW,
-        title = "What's New",
-        onSeeAllClick = { }
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SectionHeaderPreview3() {
-    SectionHeader(
-        type = SectionType.RECOMMEND_MENU,
-        title = "가요이님을 위한 추천메뉴",
-        subtitle = "최근 주문과 취향을 바탕으로, 지금 딱 어울리는 추천 메뉴를 \n준비했어요✨"
-    )
 }
