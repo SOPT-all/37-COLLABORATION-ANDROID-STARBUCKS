@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.bottomBorder
 import sopt.org.starbucks.core.util.noRippleClickable
 
 @Composable
@@ -43,7 +43,6 @@ fun QuickOrderRegisterItem(
         modifier = modifier
             .width(255.dp)
             .height(144.dp)
-            .padding(1.dp)
             .drawBehind {
                 val stroke = Stroke(
                     width = 1.dp.toPx(),
@@ -55,19 +54,17 @@ fun QuickOrderRegisterItem(
                     cornerRadius = CornerRadius(12.dp.toPx()),
                     style = stroke
                 )
-            }.clip(RoundedCornerShape(12.dp)) // ← clip을 뒤에 적용!
+            }.clip(RoundedCornerShape(12.dp))
             .background(StarbucksTheme.colors.white)
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(vertical = 12.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .bottomBorder(1.dp, StarbucksTheme.colors.gray200)
                     .padding(start = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -82,7 +79,7 @@ fun QuickOrderRegisterItem(
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .padding(end = 16.dp)
+                        .padding(vertical = 16.dp)
                 ) {
                     Text(
                         text = "나만의 메뉴를 등록하고\nHome에서 빠르게 주문해\n보세요 ☺️",
@@ -101,31 +98,15 @@ fun QuickOrderRegisterItem(
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Box(
+            Icon(
+                painter = painterResource(id = R.drawable.btn_add_quick_order),
+                contentDescription = null,
+                tint = Color.Unspecified,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(StarbucksTheme.colors.gray200)
+                    .weight(1f)
+                    .size(26.dp)
+                    .noRippleClickable { onClick() }
             )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.btn_add_quick_order),
-                    contentDescription = null,
-                    tint = Color.Unspecified,
-                    modifier = Modifier
-                        .size(26.dp)
-                        .noRippleClickable { onClick() }
-                )
-            }
         }
     }
 }
