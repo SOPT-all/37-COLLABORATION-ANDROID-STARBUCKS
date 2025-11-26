@@ -48,7 +48,8 @@ fun MainNavHost(
             MyMenuRoute(
                 paddingValues = paddingValues,
                 menuId = args.menuId,
-                onBackClick = { navigator.navController.navigateUp() }
+                onBackClick = { navigator.navController.navigateUp() },
+                navigateToOrder = navigator::navigateToOrder
             )
         }
     }
