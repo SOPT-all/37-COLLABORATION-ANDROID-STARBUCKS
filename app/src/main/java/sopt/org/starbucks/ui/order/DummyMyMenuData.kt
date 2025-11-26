@@ -6,6 +6,7 @@ import sopt.org.starbucks.data.model.MyMenu
 val dummyMyMenu = persistentListOf(
     MyMenu(
         myMenuId = 1,
+        category = OrderTab.DRINK,
         myMenuName = "상큼발랄 프레셔",
         menuName = "아이스 핑크 팝 캐모마일 릴렉서",
         myMenuOption = "ICED | Tall",
@@ -14,6 +15,7 @@ val dummyMyMenu = persistentListOf(
     ),
     MyMenu(
         myMenuId = 1,
+        category = OrderTab.DRINK,
         myMenuName = "상큼발랄 프레셔",
         menuName = "아이스 핑크 팝 캐모마일 릴렉서",
         myMenuOption = "ICED | Tall",
@@ -22,6 +24,7 @@ val dummyMyMenu = persistentListOf(
     ),
     MyMenu(
         myMenuId = 1,
+        category = OrderTab.DRINK,
         myMenuName = "상큼발랄 프레셔",
         menuName = "아이스 핑크 팝 캐모마일 릴렉서",
         myMenuOption = "ICED | Tall",
@@ -30,6 +33,7 @@ val dummyMyMenu = persistentListOf(
     ),
     MyMenu(
         myMenuId = 1,
+        category = OrderTab.DRINK,
         myMenuName = "상큼발랄 프레셔",
         menuName = "아이스 핑크 팝 캐모마일 릴렉서",
         myMenuOption = "ICED | Tall",
@@ -38,6 +42,7 @@ val dummyMyMenu = persistentListOf(
     ),
     MyMenu(
         myMenuId = 1,
+        category = OrderTab.DRINK,
         myMenuName = "상큼발랄 프레셔",
         menuName = "아이스 핑크 팝 캐모마일 릴렉서",
         myMenuOption = "ICED | Tall",
@@ -46,6 +51,7 @@ val dummyMyMenu = persistentListOf(
     ),
     MyMenu(
         myMenuId = 1,
+        category = OrderTab.DRINK,
         myMenuName = "상큼발랄 프레셔",
         menuName = "아이스 핑크 팝 캐모마일 릴렉서",
         myMenuOption = "ICED | Tall",
