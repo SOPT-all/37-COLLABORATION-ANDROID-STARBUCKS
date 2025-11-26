@@ -66,7 +66,10 @@ fun OrderScreen(
             }
 
             uiState.myMenuListLoadState.onSuccess { list ->
-                items(list) { myMenu ->
+                items(
+                    list,
+                    key = { it.myMenuId }
+                ) { myMenu ->
                     MyMenuItem(
                         imgUrl = myMenu.imgUrl,
                         myMenuName = myMenu.myMenuName,
