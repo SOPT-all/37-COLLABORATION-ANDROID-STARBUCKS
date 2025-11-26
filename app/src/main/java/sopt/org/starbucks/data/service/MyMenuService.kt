@@ -21,7 +21,7 @@ interface MyMenuService {
 
     @PATCH("/api/v1/mymenu/{id}")
     suspend fun updateMyMenuOption(
-        @Path("menuId") menuId: Long,
+        @Path("id") menuId: Long,
         @Body requestDto: MyMenuOptionRequestDto
     ): BaseResponse<MyMenuOptionResponseDto>
 }
