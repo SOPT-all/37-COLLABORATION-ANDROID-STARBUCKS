@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import sopt.org.starbucks.core.state.UiState
@@ -19,7 +20,7 @@ class OrderViewModel
         private val myMenuRepository: MyMenuRepository
     ) : ViewModel() {
         private val _uiState = MutableStateFlow<OrderUiState>(OrderUiState())
-        val uiState: StateFlow<OrderUiState> = _uiState
+        val uiState: StateFlow<OrderUiState> = _uiState.asStateFlow()
 
         fun loadMyMenuList() {
             viewModelScope.launch {
