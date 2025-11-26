@@ -81,6 +81,7 @@ fun MyMenuItem(
                         text = myMenuName,
                         style = StarbucksTheme.typography.headMedium15,
                         color = StarbucksTheme.colors.black,
+                        maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Icon(
@@ -96,12 +97,14 @@ fun MyMenuItem(
                     text = menuName,
                     style = StarbucksTheme.typography.captionRegular13,
                     color = StarbucksTheme.colors.gray600,
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = option,
                     style = StarbucksTheme.typography.captionRegular13,
                     color = StarbucksTheme.colors.gray600,
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(

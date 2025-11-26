@@ -1,6 +1,5 @@
 package sopt.org.starbucks.ui.home.component
 
-import android.R.attr.contentDescription
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -108,7 +108,7 @@ fun QuickOrderItem(
                     modifier = Modifier.size(50.dp)
                 )
 
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
                 Column(
                     modifier = Modifier
@@ -127,27 +127,24 @@ fun QuickOrderItem(
                         text = item.myMenuOption,
                         style = StarbucksTheme.typography.captionRegular12,
                         color = StarbucksTheme.colors.gray600,
-                        maxLines = 2,
+                        maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(StarbucksTheme.colors.gray200)
+            HorizontalDivider(
+                thickness = 1.dp,
+                color = StarbucksTheme.colors.gray200
             )
-
-            Spacer(modifier = Modifier.height(12.dp))
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 14.dp, end = 10.dp, bottom = 14.dp),
+                    .padding(vertical = 10.dp)
+                    .padding(start = 14.dp, end = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -170,7 +167,7 @@ fun QuickOrderItem(
                     modifier = Modifier
                         .clip(RoundedCornerShape(44.dp))
                         .background(Color.Black)
-                        .padding(horizontal = 9.dp, vertical = 5.dp)
+                        .padding(horizontal = 10.dp, vertical = 8.dp)
                         .noRippleClickable {}
                 ) {
                     Text(

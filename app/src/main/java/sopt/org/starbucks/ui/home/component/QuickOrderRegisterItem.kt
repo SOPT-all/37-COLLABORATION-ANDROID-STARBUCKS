@@ -130,7 +130,7 @@ fun QuickOrderRegisterItem(
     }
 }
 
-@Preview()
+@Preview(showBackground = true)
 @Composable
 private fun QuickOrderRegisterItemPreview() {
     StarbucksTheme {
