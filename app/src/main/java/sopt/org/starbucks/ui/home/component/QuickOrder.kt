@@ -72,47 +72,46 @@ fun QuickOrderItem(
             .clip(RoundedCornerShape(12.dp))
             .background(StarbucksTheme.colors.gray100)
     ) {
-        Icon(
-            painter = painterResource(R.drawable.ic_favorite),
-            contentDescription = null,
-            tint = if (isFavorite) {
-                StarbucksTheme.colors.green500
-            } else {
-                StarbucksTheme.colors.gray400
-            },
-            modifier = Modifier
-                .padding(top = 12.dp, end = 16.dp)
-                .align(Alignment.End)
-                .noRippleClickable { isFavorite = !isFavorite }
-        )
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .bottomBorder(1.dp, StarbucksTheme.colors.gray200)
-                .padding(start = 8.dp, end = 16.dp, bottom = 20.dp),
+                .weight(2f)
+                .padding(start = 8.dp, end = 16.dp, top = 12.dp, bottom = 10.dp),
             verticalAlignment = Alignment.Top
         ) {
             AsyncImage(
                 model = item.myMenuImage,
                 contentDescription = null,
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.size(70.dp)
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(top = 2.dp)
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_favorite),
+                    contentDescription = null,
+                    tint = if (isFavorite) {
+                        StarbucksTheme.colors.green500
+                    } else {
+                        StarbucksTheme.colors.gray400
+                    },
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .noRippleClickable { isFavorite = !isFavorite }
+                )
+
                 Text(
                     text = item.myMenuName,
                     style = StarbucksTheme.typography.headSemiBold12,
-                    color = StarbucksTheme.colors.black
+                    color = StarbucksTheme.colors.black,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
-
-                Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = item.myMenuOption,
