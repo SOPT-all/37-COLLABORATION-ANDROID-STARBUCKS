@@ -63,6 +63,10 @@ class MainNavigator(
     fun navigateToMyMenu(menuId: Long) {
         navController.navigate(MyMenu(menuId = menuId))
     }
+
+    fun navigateToOrder() {
+        navController.navigate(Order)
+    }
 }
 
 @Composable

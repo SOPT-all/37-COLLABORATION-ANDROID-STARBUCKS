@@ -1,7 +1,9 @@
 package sopt.org.starbucks.data.datasource
 
+import sopt.org.starbucks.data.dto.request.MyMenuOptionRequestDto
 import sopt.org.starbucks.data.dto.response.MyMenuDetailDto
 import sopt.org.starbucks.data.dto.response.MyMenuListDto
+import sopt.org.starbucks.data.dto.response.MyMenuOptionResponseDto
 import sopt.org.starbucks.data.network.BaseResponse
 import sopt.org.starbucks.data.service.MyMenuService
 import javax.inject.Inject
@@ -16,4 +18,9 @@ class MyMenuDataSource
         suspend fun getMyMenuList(): BaseResponse<MyMenuListDto> = myMenuService.getMyMenuList()
 
         suspend fun getMyMenuDetail(menuId: Long): BaseResponse<MyMenuDetailDto> = myMenuService.getMyMenuDetail(menuId)
+
+        suspend fun updateMyMenuOption(
+            menuId: Long,
+            request: MyMenuOptionRequestDto
+        ): BaseResponse<MyMenuOptionResponseDto> = myMenuService.updateMyMenuOption(menuId = menuId, requestDto = request)
     }

@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import sopt.org.starbucks.core.state.UiState
+import sopt.org.starbucks.data.model.OptionItemModel
+import sopt.org.starbucks.data.model.PersonalOptions
 import sopt.org.starbucks.data.repository.MyMenuRepository
 import sopt.org.starbucks.ui.mymenu.component.DrinkSize
 import sopt.org.starbucks.ui.mymenu.component.TabType
@@ -63,5 +65,76 @@ class MyMenuViewModel
 
         fun togglePersonalCup() {
             _uiState.update { it.copy(isPersonalCupChecked = !it.isPersonalCupChecked) }
+        }
+
+        fun onResetClick() {
+            _uiState.update {
+                it.copy(
+                    showDialog = true,
+                    dialogType = DialogType.RESET
+                )
+            }
+        }
+
+        fun onCancelClick(optionType: OptionType) {
+            _uiState.update {
+                it.copy(
+                    showDialog = true,
+                    dialogType = DialogType.DELETE,
+                    optionType = optionType
+                )
+            }
+        }
+
+        fun onDismissRequest() {
+            _uiState.update {
+                it.copy(
+                    showDialog = false
+                )
+            }
+        }
+
+        fun onDialogConfirm() {
+            val currentState = _uiState.value
+            val currentOptionList = currentState.optionList.toMutableList()
+
+            when (currentState.dialogType) {
+                DialogType.RESET -> {
+                    currentOptionList.clear()
+                }
+
+                DialogType.DELETE -> {
+                    currentState.optionType?.let { optionType ->
+                        currentOptionList.remove(optionType)
+                    }
+                }
+            }
+            _uiState.update {
+                it.copy(
+                    optionList = currentOptionList,
+                    showDialog = false
+                )
+            }
+        }
+
+        fun onSaveOption(menuId: Long) {
+            viewModelScope.launch {
+                val currentState = _uiState.value
+
+                val personalOptions = currentState.optionList.map { optionType ->
+                    PersonalOptions(
+                        name = optionType.option,
+                        price = optionType.price ?: 0
+                    )
+                }
+
+                val optionItem = OptionItemModel(
+                    isHot = currentState.selectedTab == TabType.HOT,
+                    size = currentState.selectedSize.name,
+                    personalOptions = personalOptions
+                )
+                myMenuRepository
+                    .updateMyMenuOption(menuId, optionItem)
+            }
         }
     }

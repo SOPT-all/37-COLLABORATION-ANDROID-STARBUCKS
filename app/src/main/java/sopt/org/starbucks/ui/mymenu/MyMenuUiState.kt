@@ -9,5 +9,9 @@ data class MyMenuUiState(
     val menuLoadState: UiState<MenuDetailModel> = UiState.Init,
     val selectedTab: TabType = TabType.ICED,
     val selectedSize: DrinkSize = DrinkSize.TALL,
-    val isPersonalCupChecked: Boolean = false
+    val isPersonalCupChecked: Boolean = false,
+    val optionList: List<OptionType> = OptionType.entries.toList(),
+    val showDialog: Boolean = false,
+    val dialogType: DialogType = DialogType.DELETE,
+    val optionType: OptionType? = OptionType.PINK
 )
