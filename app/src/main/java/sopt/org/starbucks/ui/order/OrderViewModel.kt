@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import sopt.org.starbucks.core.state.UiState
 import sopt.org.starbucks.data.model.MyMenu
 import sopt.org.starbucks.data.repository.MyMenuRepository
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -59,7 +58,6 @@ class OrderViewModel
         )
 
         fun loadMyMenuList() {
-            Timber.tag("TEST").d("Order: loadMyMenuList")
             viewModelScope.launch {
                 if (_myMenuListLoadState.value !is UiState.Success) {
                     _myMenuListLoadState.value = UiState.Loading
