@@ -47,7 +47,8 @@ fun MainNavHost(
             val args = backStackEntry.toRoute<MyMenu>()
             MyMenuRoute(
                 menuId = args.menuId,
-                onBackClick = { navigator.navController.navigateUp() }
+                onBackClick = { navigator.navController.navigateUp() },
+                navigateToOrder = navigator::navigateToOrder
             )
         }
     }

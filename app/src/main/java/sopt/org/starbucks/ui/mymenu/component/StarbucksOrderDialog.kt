@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
@@ -26,13 +25,14 @@ import sopt.org.starbucks.ui.mymenu.DialogType
 
 @Composable
 fun StarbucksOrderDialog(
+    onDismissRequest: () -> Unit,
     dialogType: DialogType,
     content: String,
-    onConfirmClick: (DialogType) -> Unit,
+    onConfirmClick: () -> Unit,
     onCancelClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Dialog(onDismissRequest = onCancelClick) {
+    Dialog(onDismissRequest = onDismissRequest) {
         Surface(
             color = StarbucksTheme.colors.white,
             shape = RoundedCornerShape(5.dp)
@@ -85,7 +85,7 @@ fun StarbucksOrderDialog(
                     DialogButton(
                         title = dialogType.label,
                         titleColor = StarbucksTheme.colors.green700,
-                        onClick = { onConfirmClick(dialogType) },
+                        onClick = { onConfirmClick() },
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -111,19 +111,6 @@ private fun DialogButton(
             style = StarbucksTheme.typography.bodyMedium16,
             color = titleColor,
             modifier = Modifier.align(Alignment.Center)
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun StarbucksOrderDialogPreview() {
-    StarbucksTheme {
-        StarbucksOrderDialog(
-            dialogType = DialogType.RESET,
-            content = "전체 초기화를 설정하신 퍼스널 옵션을 되돌릴 수 없어요.",
-            onConfirmClick = {},
-            onCancelClick = {}
         )
     }
 }
