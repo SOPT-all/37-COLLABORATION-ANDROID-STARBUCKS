@@ -17,6 +17,5 @@ data class MyMenuUiState(
     val showDialog: Boolean = false,
     val dialogType: DialogType = DialogType.DELETE,
     val selectedOption: PersonalOption? = null,
-    val menuPrice: Int = 0,
     val totalPrice: Int = 0
 )

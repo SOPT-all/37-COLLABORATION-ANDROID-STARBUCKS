@@ -116,14 +116,6 @@ private fun MyMenuContent(
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val sizePrice = when (uiState.selectedSize) {
-        DrinkSize.TALL -> menu.sizePrices.tall
-        DrinkSize.GRANDE -> menu.sizePrices.grande
-        DrinkSize.VENTI -> menu.sizePrices.venti
-    }
-    val optionPrice = uiState.optionList.sumOf { it.price }
-    val totalPrice = menu.price + sizePrice + optionPrice
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -159,7 +151,7 @@ private fun MyMenuContent(
             Spacer(modifier = Modifier.height(11.5.dp))
 
             Text(
-                text = "${totalPrice.toStringWithFormat()}원",
+                text = "${uiState.totalPrice.toStringWithFormat()}원",
                 style = StarbucksTheme.typography.bodyBold22,
                 color = StarbucksTheme.colors.black,
                 modifier = Modifier.padding(horizontal = 16.dp)

@@ -34,17 +34,25 @@ class MyMenuViewModel
                     .getMyMenuDetail(menuId)
                     .onSuccess { menu ->
                         _uiState.update {
+                            val initialSize = when (menu.size) {
+                                "GRANDE" -> DrinkSize.GRANDE
+                                "VENTI" -> DrinkSize.VENTI
+                                else -> DrinkSize.TALL
+                            }
+                            val sizePrice = when (initialSize) {
+                                DrinkSize.TALL -> menu.sizePrices.tall
+                                DrinkSize.GRANDE -> menu.sizePrices.grande
+                                DrinkSize.VENTI -> menu.sizePrices.venti
+                            }
+                            val optionPrice = menu.personalOptions.sumOf { it.price }
+                            val initialTotal = menu.price + sizePrice + optionPrice
+
                             it.copy(
                                 menuLoadState = UiState.Success(menu),
                                 selectedTab = if (menu.isHot) TabType.HOT else TabType.ICED,
-                                selectedSize = when (menu.size) {
-                                    "TALL" -> DrinkSize.TALL
-                                    "GRANDE" -> DrinkSize.GRANDE
-                                    "VENTI" -> DrinkSize.VENTI
-                                    else -> DrinkSize.TALL
-                                },
+                                selectedSize = initialSize,
                                 optionList = menu.personalOptions.toImmutableList(),
-                                menuPrice = menu.price
+                                totalPrice = initialTotal
                             )
                         }
                     }.onFailure { t ->
@@ -64,11 +72,9 @@ class MyMenuViewModel
             targetList: List<PersonalOption>? = null
         ): Int {
             val currentState = _uiState.value
-
             val menu = (currentState.menuLoadState as? UiState.Success)?.data ?: return 0
 
             val sizeToCheck = targetSize ?: currentState.selectedSize
-
             val listToCheck = targetList ?: currentState.optionList
 
             val sizePrice = when (sizeToCheck) {
@@ -86,7 +92,7 @@ class MyMenuViewModel
         }
 
         fun selectSize(size: DrinkSize) {
-            _uiState.update { it.copy(selectedSize = size) }
+            _uiState.update { it.copy(selectedSize = size, totalPrice = calculatePrice(targetSize = size)) }
         }
 
         fun togglePersonalCup() {
@@ -136,7 +142,8 @@ class MyMenuViewModel
             _uiState.update {
                 it.copy(
                     optionList = newList.toImmutableList(),
-                    showDialog = false
+                    showDialog = false,
+                    totalPrice = calculatePrice(targetList = newList)
                 )
             }
         }
