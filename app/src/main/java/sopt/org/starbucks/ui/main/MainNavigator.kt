@@ -65,7 +65,14 @@ class MainNavigator(
     }
 
     fun navigateToOrder() {
-        navController.navigate(Order)
+        val navOptions = navOptions {
+            popUpTo(navController.graph.startDestinationId) {
+                saveState = false
+            }
+            launchSingleTop = true
+            restoreState = false
+        }
+        navController.navigate(Order, navOptions)
     }
 }
 

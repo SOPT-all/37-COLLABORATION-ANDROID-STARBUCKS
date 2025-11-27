@@ -6,7 +6,7 @@ import sopt.org.starbucks.data.dto.response.MyMenuOptionResponseDto
 import sopt.org.starbucks.data.dto.response.PersonalOptionsDto
 import sopt.org.starbucks.data.model.MyMenuOptionModel
 import sopt.org.starbucks.data.model.OptionItemModel
-import sopt.org.starbucks.data.model.PersonalOptions
+import sopt.org.starbucks.data.model.PersonalOption
 
 fun OptionItemModel.toData(): MyMenuOptionRequestDto =
     MyMenuOptionRequestDto(
@@ -24,14 +24,14 @@ fun MyMenuOptionResponseDto.toDomain(): MyMenuOptionModel =
         personalOptions = this.personalOptions?.map { it.toDomain() }
     )
 
-fun PersonalOptions.toData(): PersonalOptionsRequestDto =
+fun PersonalOption.toData(): PersonalOptionsRequestDto =
     PersonalOptionsRequestDto(
         name = this.name,
         price = this.price
     )
 
-fun PersonalOptionsDto.toDomain(): PersonalOptions =
-    PersonalOptions(
+fun PersonalOptionsDto.toDomain(): PersonalOption =
+    PersonalOption(
         name = this.name,
         price = this.price
     )

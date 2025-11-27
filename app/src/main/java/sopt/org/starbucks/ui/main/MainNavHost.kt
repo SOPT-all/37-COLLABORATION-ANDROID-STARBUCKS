@@ -46,7 +46,6 @@ fun MainNavHost(
         composable<MyMenu> { backStackEntry ->
             val args = backStackEntry.toRoute<MyMenu>()
             MyMenuRoute(
-                paddingValues = paddingValues,
                 menuId = args.menuId,
                 onBackClick = { navigator.navController.navigateUp() },
                 navigateToOrder = navigator::navigateToOrder

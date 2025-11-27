@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -117,7 +118,7 @@ fun Chip(
             modifier = Modifier
                 .background(backgroundColor, shape)
                 .then(borderStroke?.let { Modifier.border(it, shape) } ?: Modifier)
-                .padding(horizontal = 20.dp, vertical = 10.dp),
+                .padding(horizontal = 18.dp, vertical = 11.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
@@ -151,8 +152,9 @@ fun Chip(
                 painter = painterResource(id = R.drawable.ic_tag_new),
                 contentDescription = null,
                 modifier = Modifier
+                    .width(30.dp)
                     .align(Alignment.TopStart)
-                    .offset(x = 7.dp, y = (-8).dp)
+                    .offset(x = 10.dp, y = (-7).dp)
             )
         }
     }

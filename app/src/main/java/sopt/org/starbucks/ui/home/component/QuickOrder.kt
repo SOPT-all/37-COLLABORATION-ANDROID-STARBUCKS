@@ -1,6 +1,5 @@
 package sopt.org.starbucks.ui.home.component
 
-import android.R.attr.contentDescription
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
+import sopt.org.starbucks.core.util.bottomBorder
 import sopt.org.starbucks.core.util.noRippleClickable
 import sopt.org.starbucks.data.model.MyHomeMenu
 
@@ -65,22 +65,32 @@ fun QuickOrderItem(
 ) {
     var isFavorite by rememberSaveable { mutableStateOf(true) }
 
-    Box(
+    Column(
         modifier = modifier
             .width(255.dp)
+            .height(144.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(StarbucksTheme.colors.gray100)
     ) {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 12.dp)
+                .bottomBorder(1.dp, StarbucksTheme.colors.gray200)
+                .weight(2f)
+                .padding(start = 8.dp, end = 16.dp, top = 12.dp, bottom = 10.dp),
+            verticalAlignment = Alignment.Top
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 16.dp),
-                horizontalArrangement = Arrangement.End
+            AsyncImage(
+                model = item.myMenuImage,
+                contentDescription = null,
+                modifier = Modifier.size(70.dp)
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_favorite),
@@ -91,94 +101,63 @@ fun QuickOrderItem(
                         StarbucksTheme.colors.gray400
                     },
                     modifier = Modifier
-                        .padding(2.dp)
+                        .align(Alignment.End)
                         .noRippleClickable { isFavorite = !isFavorite }
                 )
-            }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp),
-                verticalAlignment = Alignment.Top
-            ) {
-                AsyncImage(
-                    model = item.myMenuImage,
-                    contentDescription = null,
-                    modifier = Modifier.size(50.dp)
+                Text(
+                    text = item.myMenuName,
+                    style = StarbucksTheme.typography.headSemiBold12,
+                    color = StarbucksTheme.colors.black,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
 
-                Spacer(modifier = Modifier.width(12.dp))
-
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(top = 2.dp, end = 16.dp)
-                ) {
-                    Text(
-                        text = item.myMenuName,
-                        style = StarbucksTheme.typography.headSemiBold12,
-                        color = StarbucksTheme.colors.black
-                    )
-
-                    Spacer(modifier = Modifier.height(4.dp))
-
-                    Text(
-                        text = item.myMenuOption,
-                        style = StarbucksTheme.typography.captionRegular12,
-                        color = StarbucksTheme.colors.gray600,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
+                Text(
+                    text = item.myMenuOption,
+                    style = StarbucksTheme.typography.captionRegular12,
+                    color = StarbucksTheme.colors.gray600,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
+        }
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(start = 14.dp, end = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_location),
+                    contentDescription = null,
+                    tint = StarbucksTheme.colors.brown,
+                    modifier = Modifier.size(24.dp)
+                )
+
+                Text(
+                    text = "매장을 설정 하세요.",
+                    style = StarbucksTheme.typography.captionRegular12Underline,
+                    color = StarbucksTheme.colors.brown
+                )
+            }
 
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(StarbucksTheme.colors.gray200)
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 14.dp, end = 10.dp, bottom = 14.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .clip(RoundedCornerShape(44.dp))
+                    .background(Color.Black)
+                    .padding(horizontal = 10.dp, vertical = 8.dp)
+                    .noRippleClickable {}
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_location),
-                        contentDescription = null,
-                        tint = StarbucksTheme.colors.brown,
-                        modifier = Modifier.size(24.dp)
-                    )
-
-                    Text(
-                        text = "매장을 설정 하세요.",
-                        style = StarbucksTheme.typography.captionRegular12Underline,
-                        color = StarbucksTheme.colors.brown
-                    )
-                }
-
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(44.dp))
-                        .background(Color.Black)
-                        .padding(horizontal = 9.dp, vertical = 5.dp)
-                        .noRippleClickable {}
-                ) {
-                    Text(
-                        text = "바로 주문하기",
-                        style = StarbucksTheme.typography.captionRegular11,
-                        color = Color.White
-                    )
-                }
+                Text(
+                    text = "바로 주문하기",
+                    style = StarbucksTheme.typography.captionRegular11,
+                    color = Color.White
+                )
             }
         }
     }

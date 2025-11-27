@@ -1,6 +1,5 @@
 package sopt.org.starbucks.ui.mymenu.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,20 +27,16 @@ fun DrinkImageSection(
 ) {
     Box(
         modifier = modifier
-            .fillMaxWidth()
-            .background(StarbucksTheme.colors.red01)
     ) {
-        // 음료 이미지
         AsyncImage(
             model = imageUrl,
-            contentDescription = "중앙 음료 이미자",
-            contentScale = ContentScale.Fit,
+            contentDescription = "중앙 음료 이미지",
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .align(Alignment.Center)
-                .aspectRatio(1f)
+                .fillMaxWidth()
+                .aspectRatio(358f / 333f)
         )
 
-        // 뒤로가기
         IconButton(
             onClick = onBackClick,
             modifier = Modifier
@@ -56,12 +51,11 @@ fun DrinkImageSection(
             )
         }
 
-        // 공유
         IconButton(
             onClick = { },
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .padding(top = 62.dp, end = 19.dp)
+                .padding(top = 62.dp, end = 16.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_share),
@@ -71,12 +65,11 @@ fun DrinkImageSection(
             )
         }
 
-        // 이미지
         IconButton(
             onClick = { },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(bottom = 22.dp, end = 19.dp)
+                .padding(bottom = 22.dp, end = 16.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_image),

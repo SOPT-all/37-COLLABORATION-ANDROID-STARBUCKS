@@ -20,12 +20,13 @@ import androidx.compose.ui.unit.dp
 import sopt.org.starbucks.R
 import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.util.noRippleClickable
+import sopt.org.starbucks.data.model.PersonalOption
 
 @Composable
 fun PersonalOptionContent(
-    optionList: List<OptionType>,
+    optionList: List<PersonalOption>,
     onResetClick: () -> Unit,
-    onCancelClick: (OptionType) -> Unit,
+    onCancelClick: (PersonalOption) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -76,9 +77,9 @@ fun PersonalOptionContent(
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        optionList.forEachIndexed { index, type ->
+        optionList.forEachIndexed { index, option ->
             OptionContent(
-                type = type,
+                option = option,
                 onDeleteClick = onCancelClick
             )
 
@@ -110,8 +111,8 @@ private fun OptionTipBox() {
 
 @Composable
 private fun OptionContent(
-    type: OptionType,
-    onDeleteClick: (OptionType) -> Unit,
+    option: PersonalOption,
+    onDeleteClick: (PersonalOption) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -124,24 +125,22 @@ private fun OptionContent(
             contentDescription = "cancel icon",
             modifier = Modifier
                 .padding(end = 5.dp)
-                .noRippleClickable(onClick = { onDeleteClick(type) }),
+                .noRippleClickable(onClick = { onDeleteClick(option) }),
             tint = StarbucksTheme.colors.gray200
         )
 
         Text(
-            text = type.option,
+            text = option.name,
             style = StarbucksTheme.typography.captionRegular13,
             color = StarbucksTheme.colors.brown
         )
 
-        if (type.price != null) {
-            Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
 
-            Text(
-                text = "${type.price}원",
-                style = StarbucksTheme.typography.captionRegular13,
-                color = StarbucksTheme.colors.brown
-            )
-        }
+        Text(
+            text = if (option.price == 0) "" else "${option.price}원",
+            style = StarbucksTheme.typography.captionRegular13,
+            color = StarbucksTheme.colors.brown
+        )
     }
 }
