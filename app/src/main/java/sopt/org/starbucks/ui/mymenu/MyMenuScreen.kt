@@ -20,6 +20,7 @@ import sopt.org.starbucks.core.designsystem.theme.StarbucksTheme
 import sopt.org.starbucks.core.util.onSuccess
 import sopt.org.starbucks.core.util.toStringWithFormat
 import sopt.org.starbucks.data.model.MenuDetailModel
+import sopt.org.starbucks.data.model.PersonalOption
 import sopt.org.starbucks.ui.mymenu.component.DrinkImageSection
 import sopt.org.starbucks.ui.mymenu.component.DrinkSize
 import sopt.org.starbucks.ui.mymenu.component.DrinkTitleSection
@@ -48,7 +49,7 @@ fun MyMenuRoute(
     if (uiState.showDialog) {
         val content = when (uiState.dialogType) {
             DialogType.RESET -> "전체 초기화하면 설정하신 퍼스널 옵션을 되돌릴 수 없어요."
-            DialogType.DELETE -> "${uiState.optionType?.option}"
+            DialogType.DELETE -> "${uiState.selectedOption?.name}"
         }
         StarbucksOrderDialog(
             onDismissRequest = viewModel::onDismissRequest,
@@ -70,8 +71,7 @@ fun MyMenuRoute(
         onSaveClick = {
             viewModel.onSaveOption(menuId)
             navigateToOrder()
-        },
-        modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
+        }
     )
 }
 
@@ -83,17 +83,14 @@ fun MyMenuScreen(
     onPersonalCupToggle: () -> Unit,
     onBackClick: () -> Unit,
     onResetClick: () -> Unit,
-    onCancelClick: (OptionType) -> Unit,
+    onCancelClick: (PersonalOption) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     uiState.menuLoadState.onSuccess { menu ->
         MyMenuContent(
             menu = menu,
-            selectedTab = uiState.selectedTab,
-            selectedSize = uiState.selectedSize,
-            isPersonalCupChecked = uiState.isPersonalCupChecked,
-            optionList = uiState.optionList,
+            uiState = uiState,
             onTabSelected = onTabSelected,
             onSizeSelected = onSizeSelected,
             onPersonalCupToggle = onPersonalCupToggle,
@@ -109,25 +106,23 @@ fun MyMenuScreen(
 @Composable
 private fun MyMenuContent(
     menu: MenuDetailModel,
-    selectedTab: TabType,
-    selectedSize: DrinkSize,
-    isPersonalCupChecked: Boolean,
-    optionList: List<OptionType>,
+    uiState: MyMenuUiState,
     onTabSelected: (TabType) -> Unit,
     onSizeSelected: (DrinkSize) -> Unit,
     onPersonalCupToggle: () -> Unit,
     onBackClick: () -> Unit,
     onResetClick: () -> Unit,
-    onCancelClick: (OptionType) -> Unit,
+    onCancelClick: (PersonalOption) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val sizePrice = when (selectedSize) {
+    val sizePrice = when (uiState.selectedSize) {
         DrinkSize.TALL -> menu.sizePrices.tall
         DrinkSize.GRANDE -> menu.sizePrices.grande
         DrinkSize.VENTI -> menu.sizePrices.venti
     }
-    val totalPrice = menu.price + sizePrice
+    val optionPrice = uiState.optionList.sumOf { it.price }
+    val totalPrice = menu.price + sizePrice + optionPrice
 
     Column(
         modifier = modifier
@@ -140,7 +135,7 @@ private fun MyMenuContent(
                 .verticalScroll(rememberScrollState())
                 .padding(bottom = 14.dp)
         ) {
-            val (imageUrl, koreanName, englishName) = when (selectedTab) {
+            val (imageUrl, koreanName, englishName) = when (uiState.selectedTab) {
                 TabType.HOT -> Triple(menu.hotMenuImageUrl, menu.hotMenuKr, menu.hotMenuEng)
                 TabType.ICED -> Triple(menu.iceMenuImageUrl, menu.iceMenuKr, menu.iceMenuEng)
             }
@@ -173,7 +168,7 @@ private fun MyMenuContent(
             Spacer(modifier = Modifier.height(18.dp))
 
             TabToggle(
-                selectedTab = selectedTab,
+                selectedTab = uiState.selectedTab,
                 onTabSelected = onTabSelected,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -194,7 +189,7 @@ private fun MyMenuContent(
             Spacer(modifier = Modifier.height(22.dp))
 
             SelectCupSection(
-                selectedSize = selectedSize,
+                selectedSize = uiState.selectedSize,
                 onSizeSelected = onSizeSelected,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -202,7 +197,7 @@ private fun MyMenuContent(
             Spacer(modifier = Modifier.height(22.dp))
 
             EcoFriendlySection(
-                isPersonalCupChecked = isPersonalCupChecked,
+                isPersonalCupChecked = uiState.isPersonalCupChecked,
                 onPersonalCupToggle = onPersonalCupToggle,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -210,14 +205,14 @@ private fun MyMenuContent(
             Spacer(modifier = Modifier.height(9.dp))
 
             PersonalOptionContent(
-                optionList = optionList,
+                optionList = uiState.optionList,
                 onResetClick = onResetClick,
                 onCancelClick = onCancelClick
             )
         }
 
         MyMenuRegisterBar(
-            optionInfo = "${selectedTab.title} | ${selectedSize.displayName}",
+            optionInfo = "${uiState.selectedTab.title} | ${uiState.selectedSize.displayName}",
             onAddNewClick = { },
             onSaveClick = onSaveClick
         )

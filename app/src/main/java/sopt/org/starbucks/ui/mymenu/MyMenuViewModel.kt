@@ -3,13 +3,15 @@ package sopt.org.starbucks.ui.mymenu
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import sopt.org.starbucks.core.state.UiState
 import sopt.org.starbucks.data.model.OptionItemModel
-import sopt.org.starbucks.data.model.PersonalOptions
+import sopt.org.starbucks.data.model.PersonalOption
 import sopt.org.starbucks.data.repository.MyMenuRepository
 import sopt.org.starbucks.ui.mymenu.component.DrinkSize
 import sopt.org.starbucks.ui.mymenu.component.TabType
@@ -40,7 +42,9 @@ class MyMenuViewModel
                                     "GRANDE" -> DrinkSize.GRANDE
                                     "VENTI" -> DrinkSize.VENTI
                                     else -> DrinkSize.TALL
-                                }
+                                },
+                                optionList = menu.personalOptions.toImmutableList(),
+                                menuPrice = menu.price
                             )
                         }
                     }.onFailure { t ->
@@ -53,6 +57,28 @@ class MyMenuViewModel
                         }
                     }
             }
+        }
+
+        private fun calculatePrice(
+            targetSize: DrinkSize? = null,
+            targetList: List<PersonalOption>? = null
+        ): Int {
+            val currentState = _uiState.value
+
+            val menu = (currentState.menuLoadState as? UiState.Success)?.data ?: return 0
+
+            val sizeToCheck = targetSize ?: currentState.selectedSize
+
+            val listToCheck = targetList ?: currentState.optionList
+
+            val sizePrice = when (sizeToCheck) {
+                DrinkSize.TALL -> menu.sizePrices.tall
+                DrinkSize.GRANDE -> menu.sizePrices.grande
+                DrinkSize.VENTI -> menu.sizePrices.venti
+            }
+            val optionPrice = listToCheck.sumOf { it.price }
+
+            return menu.price + sizePrice + optionPrice
         }
 
         fun selectTab(tab: TabType) {
@@ -76,12 +102,12 @@ class MyMenuViewModel
             }
         }
 
-        fun onCancelClick(optionType: OptionType) {
+        fun onCancelClick(personalOption: PersonalOption) {
             _uiState.update {
                 it.copy(
                     showDialog = true,
                     dialogType = DialogType.DELETE,
-                    optionType = optionType
+                    selectedOption = personalOption
                 )
             }
         }
@@ -95,23 +121,21 @@ class MyMenuViewModel
         }
 
         fun onDialogConfirm() {
-            val currentState = _uiState.value
-            val currentOptionList = currentState.optionList.toMutableList()
+            val currentList = _uiState.value.optionList.toMutableList()
 
-            when (currentState.dialogType) {
+            val newList = when (_uiState.value.dialogType) {
                 DialogType.RESET -> {
-                    currentOptionList.clear()
+                    persistentListOf<PersonalOption>()
                 }
 
                 DialogType.DELETE -> {
-                    currentState.optionType?.let { optionType ->
-                        currentOptionList.remove(optionType)
-                    }
+                    currentList.apply { remove(_uiState.value.selectedOption) }
                 }
             }
+
             _uiState.update {
                 it.copy(
-                    optionList = currentOptionList,
+                    optionList = newList.toImmutableList(),
                     showDialog = false
                 )
             }
@@ -121,18 +145,12 @@ class MyMenuViewModel
             viewModelScope.launch {
                 val currentState = _uiState.value
 
-                val personalOptions = currentState.optionList.map { optionType ->
-                    PersonalOptions(
-                        name = optionType.option,
-                        price = optionType.price ?: 0
-                    )
-                }
-
                 val optionItem = OptionItemModel(
                     isHot = currentState.selectedTab == TabType.HOT,
                     size = currentState.selectedSize.name,
-                    personalOptions = personalOptions
+                    personalOptions = currentState.optionList
                 )
+
                 myMenuRepository
                     .updateMyMenuOption(menuId, optionItem)
             }

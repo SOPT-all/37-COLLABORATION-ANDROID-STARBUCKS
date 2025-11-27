@@ -3,7 +3,7 @@ package sopt.org.starbucks.data.model
 data class OptionItemModel(
     val isHot: Boolean?,
     val size: String?,
-    val personalOptions: List<PersonalOptions>?
+    val personalOptions: List<PersonalOption>?
 )
 
 data class MyMenuOptionModel(
@@ -11,10 +11,5 @@ data class MyMenuOptionModel(
     val isHot: Boolean?,
     val size: String?,
     val summary: String = "",
-    val personalOptions: List<PersonalOptions>?
-)
-
-data class PersonalOptions(
-    val name: String,
-    val price: Int
+    val personalOptions: List<PersonalOption>?
 )

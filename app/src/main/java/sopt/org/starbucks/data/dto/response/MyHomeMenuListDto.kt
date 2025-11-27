@@ -8,3 +8,15 @@ data class MyHomeMenuListDto(
     @SerialName("myMenuList")
     val myMenuList: List<MyHomeMenuDto>
 )
+
+@Serializable
+data class MyHomeMenuDto(
+    @SerialName("myMenuId")
+    val myMenuId: Long,
+    @SerialName("myMenuName")
+    val myMenuName: String,
+    @SerialName("myMenuOption")
+    val myMenuOption: String,
+    @SerialName("myMenuImage")
+    val myMenuImage: String
+)
