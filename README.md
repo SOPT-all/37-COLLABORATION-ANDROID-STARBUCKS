@@ -3,8 +3,6 @@
 
 <img src="https://github.com/user-attachments/assets/9b5f4efc-9357-40e7-a82a-6563a5f17718" height="350"/>
 
-
-
 <br/>
 
 ## 📱 Android Developer
@@ -12,7 +10,7 @@
 <table>
   <tr>
     <td align="center"><sub><b>👑 이지현</b></sub><br/><a href="https://github.com/Jyunee54">@Jyunee54</a></td>
-    <td align="center"><sub><b>주아연</b></sub><br/><a href="https://github.com/znayeonzn">znayeonzn</a></td>
+    <td align="center"><sub><b>주아연</b></sub><br/><a href="https://github.com/znayeonzn">@znayeonzn</a></td>
     <td align="center"><sub><b>유수현</b></sub><br/><a href="https://github.com/sssuhha">@sssuhha</a></td>
     <td align="center"><sub><b>임차민</b></sub><br/><a href="https://github.com/ckals413">@ckals413</a></td>
   </tr>
@@ -37,9 +35,6 @@
 ## 📸 시연 영상
 
 https://github.com/user-attachments/assets/fee93538-67ee-410d-af40-4426891f4137
-
-
-
 
 <br/>
 
